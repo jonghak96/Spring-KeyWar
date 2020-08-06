@@ -33,17 +33,7 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		// 주석 추가.
-		
-		
-		
-		
-		
-		String name;
-		name = "이름";
-	
-		
 		return "home";
-	}
+		}
 	
 }
