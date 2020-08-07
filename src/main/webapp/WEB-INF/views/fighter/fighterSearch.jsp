@@ -12,7 +12,7 @@
 		var mId = $(select).text();
 		
 		$.ajax({
-			url : "fighter/fighterContent",
+			url : "fighterContent",
 			type : "POST",
 			dataType : "html", 
 			data : {
@@ -50,7 +50,7 @@
 
 	<h1>선수정보</h1>	
 
-	<form action="getFighterSearch_click" method="get">
+	<form action="fighterSearch" method="post">
 		<select name="searchCategory">
 			<option value="mId">아이디</option>
 			<option value="mArea">지역</option>

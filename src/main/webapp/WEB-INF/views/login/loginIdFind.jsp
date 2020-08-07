@@ -9,7 +9,7 @@
 <body>
 
 
-	<form action="findId" method="get">
+	<form action="findId.lo" method="post">
 		회원 이름 : <input type="text" name="mName">				<br>
 		전화번호 : <input type="text" name="mTelno">				<br>
 		이메일 : <input type="text" name="mEmail">				<br>
