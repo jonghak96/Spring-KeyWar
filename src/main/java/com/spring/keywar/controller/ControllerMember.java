@@ -5,9 +5,31 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.spring.keywar.dao.DaoMember;
+
 
 @Controller
 public class ControllerMember {
+	
+	@Autowired
+	private SqlSession sqlSession;
+	
+	// 선수/ 체육관 회원가입 선택 창
+	@RequestMapping("/signUp_view") 
+	public String write_view(Model model) {
+		
+		return "member/signUpSelect";
+	}
+	
+	// 선수 회원가입 창
+	@RequestMapping("/memberSignUp_view") 
+	public String memberSignUp_view(Model model) {
+		
+		return "member/memberSignUp";
+	}
 
 	// 회원가입 정보 입력
 	@RequestMapping("/customerSignUp") 
