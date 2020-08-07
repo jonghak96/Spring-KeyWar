@@ -11,7 +11,7 @@
 	
 <script type="text/javascript">
 	function mainPageMove() {
-		location.href = "../mainScreen.jsp";
+		location.href = "main";
 	}
 </script>
 
@@ -38,7 +38,7 @@
 		<c:import url="../main/menu.jsp"></c:import>	
 	</header>
 	<div id="container">
-		<c:import url="fighterSearch.kf"></c:import>
+		<c:import url="/getFighterSearch"></c:import>
 		<button id="bt" onclick="mainPageMove()">메인 페이지로 이동</button> &emsp;&emsp;
 	</div>
 	<footer>

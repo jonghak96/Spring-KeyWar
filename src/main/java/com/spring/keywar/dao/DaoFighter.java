@@ -6,6 +6,8 @@ import com.spring.keywar.dto.DtoMember;
 import com.spring.keywar.dto.DtoMemberGym;
 
 
+
+
 public interface DaoFighter {
 	// 초기 선수 리스트.
 	public int count_fighterList();
