@@ -8,20 +8,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.spring.keywar.dao.DaoGym;
+import com.spring.keywar.dao.DaoFreeBoard;
 
 @Controller
-public class ControllerGym {
-
+public class ControllerFreeBoard {
+	
 	@Autowired
 	private SqlSession sqlSession;
 	
-	
-	@RequestMapping("/gym/gymSearch")
-	public String gymList(HttpServletRequest request, Model model) {
+	@RequestMapping("/freeboard/freeboardSearch")
+	public String freeboardList(HttpServletRequest request, Model model) {
 		
 		// Dao 선언
-		DaoGym dao = sqlSession.getMapper(DaoGym.class);
+		DaoFreeBoard dao = sqlSession.getMapper(DaoFreeBoard.class);
 		
 		// 검색 카테고리
 		String searchCategory = "";
@@ -44,47 +43,49 @@ public class ControllerGym {
 		if(request.getParameter("searchCategory") == null || request.getParameter("searchCategory").equals("") ||
 				request.getParameter("searchWord") == null || request.getParameter("searchWord").equals("")) {
 		
-			model.addAttribute("searchCategory", "");
-			model.addAttribute("searchWord", "");
+			request.setAttribute("searchCategory", "");
+			request.setAttribute("searchWord", "");
 			
-			rowTotal = dao.count_gymList();
-			pageTotal = (double)rowTotal / 10;
+			rowTotal = dao.count_freeboardList();
+System.out.println(rowTotal);
+			pageTotal = (double)rowTotal / 5;
 			pageTotal = Math.ceil(pageTotal);
 			
+			
 			// 페이지 처음 뜰 때, 테이블 출력
-			model.addAttribute("search", dao.gymList((page-1)*10));
+			model.addAttribute("search",dao.freeboardList((page-1)*5));
+System.out.println(dao.freeboardList((page-1)*5).get(0).getFbSeqno());
+System.out.println(dao.freeboardList((page-1)*5).get(1).getFbSeqno());
 			model.addAttribute("pageTotal", (int)pageTotal);
+			
 		} else {
 			
 			searchCategory = request.getParameter("searchCategory");
 			searchWord = request.getParameter("searchWord");
 			
-			if(searchCategory.equals("mName")) {
-				rowTotal = dao.count_gymSearch_mName(searchWord);
-			}
-			if(searchCategory.equals("gAddress")) {
-				rowTotal = dao.count_gymSearch_gAddress(searchWord);
-			}
-			if(searchCategory.equals("mSports")) {
-				rowTotal = dao.count_gymSearch_mSports(searchWord);
+			if(searchCategory.equals("fbTitle")) {
+				rowTotal = dao.count_freeboardSearch_fbTitle(searchWord);
+System.out.println(rowTotal);
 			}
 			
-
-			pageTotal = (double)rowTotal / 10;
+			if(searchCategory.equals("mId")) {
+				rowTotal = dao.count_freeboardSearch_mId(searchWord);
+System.out.println(rowTotal);
+			}
+			
+			pageTotal = (double)rowTotal / 5;
 			pageTotal = Math.ceil(pageTotal);
 			
-			if(searchCategory.equals("mName")) {
-				model.addAttribute("search", dao.gymSearch_mName(searchWord, (page-1)*10));
-System.out.println(dao.gymSearch_mName(searchWord, (page-1)*10));
+			if(searchCategory.equals("fbTitle")) {
+				model.addAttribute("search",dao.freeboardSearch_fbTitle(searchWord ,(page-1)*5));
+System.out.println(dao.freeboardSearch_fbTitle(searchWord ,(page-1)*5));
 			}
-			if(searchCategory.equals("gAddress")) {
-				model.addAttribute("search", dao.gymSearch_gAddress(searchWord, (page-1)*10));
-System.out.println(dao.gymSearch_gAddress(searchWord, (page-1)*10));
+			
+			if(searchCategory.equals("mId")) {
+				model.addAttribute("search",dao.freeboardSearch_mId(searchWord ,(page-1)*5));
+System.out.println(dao.freeboardSearch_mId(searchWord ,(page-1)*5));
 			}
-			if(searchCategory.equals("mSports")) {
-				model.addAttribute("search", dao.gymSearch_mSports(searchWord, (page-1)*10));
-System.out.println(dao.gymSearch_mSports(searchWord, (page-1)*10));
-			}
+			
 			
 			// 페이지 처음 뜰 때, 테이블 출력
 			model.addAttribute("pageTotal", (int)pageTotal);
@@ -111,6 +112,7 @@ System.out.println(dao.gymSearch_mSports(searchWord, (page-1)*10));
 		if (point >= 1 && point < ((int)pageTotal / 10 + 1)) {	// 선택한 리스트가 1번째 이면서 전체 레코드수를 10으로 나눈값보다 작을때 앞으로가기를 만든다.
 			go = point * 10 + 1;
 		}
+
 		
 		model.addAttribute("point", point);
 		model.addAttribute("page", page);
@@ -119,28 +121,13 @@ System.out.println(dao.gymSearch_mSports(searchWord, (page-1)*10));
 		model.addAttribute("back", back);
 		model.addAttribute("go", go);
 		
-		return "gym/gymSearch";
+		return "freeboard/freeboardSearch";
 	}
 	
 	
-	@RequestMapping("/gym/gymContent")
-	public String gymContent(HttpServletRequest request, Model model) {
-		
-		// Dao 선언
-		DaoGym dao = sqlSession.getMapper(DaoGym.class);
-		
-		String mId = request.getParameter("mId");
-System.out.println(mId);
-		
-		// 체육관 상세 정보.
-		model.addAttribute("content", dao.gymContent(mId));
-System.out.println(dao.gymContent(mId));
-		// 체육관 이미지 리스트.
-		model.addAttribute("gymphoto", dao.gymFile(mId));
-System.out.println(dao.gymFile(mId));
-		
-		return "gym/gymContent";
-	}
+	
+
+	
 	
 	
 }//----

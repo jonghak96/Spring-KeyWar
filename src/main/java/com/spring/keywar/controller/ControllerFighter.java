@@ -3,6 +3,7 @@ package com.spring.keywar.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spring.keywar.dao.DaoFighter;
-import com.spring.keywar.dao.DaoMember;
 
 @Controller
 public class ControllerFighter {
@@ -116,10 +116,12 @@ System.out.println(dao.fighterSearch_mSports(searchWord, (page-1)*10));
 			go = pageIndex * 10 + 1;
 		}
 			
-		// 페이지 처음 뜰 때, 테이블 출력
-		model.addAttribute("pageTotal", (int)pageTotal);
-		model.addAttribute("searchCategory", searchCategory);
-		model.addAttribute("searchWord", searchWord);
+		model.addAttribute("point", pageIndex);
+		model.addAttribute("page", page);
+		model.addAttribute("min_num", min_num);
+		model.addAttribute("max_num", max_num);
+		model.addAttribute("back", back);
+		model.addAttribute("go", go);
 
 		return "fighter/fighterSearch";
 	}
@@ -130,9 +132,10 @@ System.out.println(dao.fighterSearch_mSports(searchWord, (page-1)*10));
 		
 		// Dao 선언
 		DaoFighter dao = sqlSession.getMapper(DaoFighter.class);
+		// 선수 상세 정보.
 		model.addAttribute("content", dao.fighterContent(request.getParameter("mId")));
-		
-		
+		// 체육관 리스트.
+		model.addAttribute("gymlist", dao.gymList());
 		
 		return "fighter/fighterContent";
 	}
