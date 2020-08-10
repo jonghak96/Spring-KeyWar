@@ -1,6 +1,5 @@
 package com.spring.keywar.controller;
 
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -179,7 +178,6 @@ System.out.println(dao.freeboardSearch_mId(searchWord ,(page-1)*5));
 		dao.viewCount(fbSeqno);
 		// 첨부파일 띄워주기.
 		model.addAttribute("file", dao.freeboardContentFile(fbSeqno));
-System.out.println(dao.freeboardContentFile(fbSeqno).get(0).getFfPhotoPath());
 		
 		return "freeboard/freeboardContent";
 	}
