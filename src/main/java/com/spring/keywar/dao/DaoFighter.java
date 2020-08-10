@@ -3,8 +3,7 @@ package com.spring.keywar.dao;
 import java.util.ArrayList;
 
 import com.spring.keywar.dto.DtoMember;
-
-
+import com.spring.keywar.dto.DtoMemberGym;
 
 
 public interface DaoFighter {
@@ -17,6 +16,8 @@ public interface DaoFighter {
 	public int count_fighterSearch_mSports(String searchWord);
 	public ArrayList<DtoMember> fighterSearch_mIdmArea(String searchCategory, String searchWord, int page);
 	public ArrayList<DtoMember> fighterSearch_mSports(String searchWord, int page);
-	
+	// 선수 상세 정보.
 	public DtoMember fighterContent(String mIdStr);
+	// 체육관 리스트. (조건 붙으면 좋을 듯.)
+	public ArrayList<DtoMemberGym> gymList();
 }

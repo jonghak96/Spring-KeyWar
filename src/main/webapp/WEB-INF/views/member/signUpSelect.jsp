@@ -13,9 +13,9 @@
 		
 		if (check) {
 			if (value.value == "bt1")
-				location.href = "memberSignUp_view";
+				location.href = "memberSignUp.jsp";
 			else
-				location.href = "gymSignUp_view";
+				location.href = "gymSignUp.jsp";
 		} else {
 			alert("동의하세요");
 		}		

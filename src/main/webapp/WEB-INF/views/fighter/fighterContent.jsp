@@ -34,21 +34,21 @@
 	 자기소개 &emsp; ${content.mIntro }
 	 <br>
 				
-	<c:forEach items="${GYMLIST }" var="GYMLIST">
-	<form action="matching.match" method="post">
+	<c:forEach items="${gymlist }" var="gymlist">
+	<form action="matching.match" method="get">
 	<div id="formMatch">
-	 	<input type="hidden" name="gymSeqno" value="${GYMLIST.mSeqno }">
+	 	<input type="hidden" name="gymSeqno" value="${gymlist.mSeqno }">
 		<input type="hidden" name="rivalId" value="${content.mId }">
 		<input type="hidden" name="myId" value="${loginId }"> 
 		<div>		
-			 체육관 이름 : ${GYMLIST.mName } &emsp;
-			 체육관 주소 : ${GYMLIST.gAddress } &emsp;
-			 체육관 비용 : ${GYMLIST.gRentalPrice } &emsp;
+			 체육관 이름 : ${gymlist.mName } &emsp;
+			 체육관 주소 : ${gymlist.gAddress } &emsp;
+			 체육관 비용 : ${gymlist.gRentalPrice } &emsp;
 			<input type="submit" value="스파링 신청하기">
 		</div>
 		<div>
-			체육관 가능한 시간 : <input type="text" value="${GYMLIST.tTimeTable1 }" readonly="readonly" size="3"> ~ 
-			<input type="text" value="${GYMLIST.tTimeTable2 }" readonly="readonly" size="3" >			
+			체육관 가능한 시간 : <input type="text" value="${gymlist.tTimeTable1 }" readonly="readonly" size="3"> ~ 
+			<input type="text" value="${gymlist.tTimeTable2 }" readonly="readonly" size="3" >			
 		</div>
 		<div>
 			날짜 : <select name="month">

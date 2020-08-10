@@ -44,7 +44,7 @@
 				<c:forEach items="${file }" var="file" varStatus="vs">
 			<tr>
 				<td>첨부파일${vs.count}</td>
-				<td><img src="../freeboard/${file.ffPhotoPath }" alt="photo" width="200" height="200"></td>
+				<td><img src="/keywar/resources/${file.ffPhotoPath }" alt="photo" width="200" height="200"></td>
 			</tr>
 				</c:forEach>
 

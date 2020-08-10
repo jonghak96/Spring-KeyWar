@@ -108,7 +108,7 @@
 	
 <script type="text/javascript">
 	function mainPageMove() {
-		location.href = "main";
+		location.href = "../mainScreen.jsp";
 	}
 </script>
 

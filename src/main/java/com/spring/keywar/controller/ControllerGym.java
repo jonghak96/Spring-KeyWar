@@ -16,13 +16,8 @@ public class ControllerGym {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	@RequestMapping("/gymSearch_click")
-	public String fighterSearch(HttpServletRequest request, Model model) {
-		return "gym/gymPage";
-	}
 	
-	
-	@RequestMapping("/getGymSearch")
+	@RequestMapping("/gym/gymSearch")
 	public String gymList(HttpServletRequest request, Model model) {
 		
 		// Dao 선언

@@ -152,7 +152,7 @@
 		
 		$.ajax({
 			url : "KControllerAjax", // 데이터를 보낼 장소
-			type : "GET", // get, post 두가지의 방식
+			type : "POST", // get, post 두가지의 방식
 			dataType : "TEXT", 
 			data : {
 				id : $("#id").val()
@@ -197,11 +197,11 @@
 
 </head>
 <body>
-	<form action="customerSignUp" method="get" enctype="Multipart/form-data" onsubmit="return formSubmit()">
+	<form action="customerSignUp.mbr" method="post" enctype="Multipart/form-data" onsubmit="return formSubmit()">
 		<h6 id="c1">*필수 입력</h6>
 		*아이디 : <input type="text" name="id" id="id" maxlength="17"><button type="button" onclick="idOverlapCheck()">아이디 중복확인</button> <span id="idCheck"></span>			<br>
 		*비밀번호 : <input type="password" name="pw" id="pw" maxlength="17">		<br>
-		*비밀번호 확인 : <input type="password" id="pwCheck" maxlength="17">		<br>
+		*비밀번호 확인 : <input type="password" id="pwCheck" maxlength="17">			<br>
 		*이름 : <input type="text" name="name" id="name" maxlength="10">			<br>
 		*성별 : <input type="text" name="sex" id="sex" maxlength="1">				<br>
 		*나이 <select name="age">

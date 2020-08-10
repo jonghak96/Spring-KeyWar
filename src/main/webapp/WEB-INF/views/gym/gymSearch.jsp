@@ -13,7 +13,7 @@
 		var mId = $(select).attr('id');
 		
 		$.ajax({
-			url : "gym/gymContent",
+			url : "gymContent",
 			type : "POST",
 			dataType : "html", 
 			data : {
@@ -54,7 +54,7 @@
 <body>
 	<h1>체육관정보</h1>
 
-	<form action="gymSearch_click" method="get">
+	<form action="gymSearch" method="get">
 		<select name="searchCategory">
 			<option value="mName">체육관명</option>
 			<option value="gAddress">주소</option>
@@ -118,6 +118,28 @@
 	<br>
 	<br>
 	<br>
+	
+<script type="text/javascript">
+	function mainPageMove() {
+		parent.location.href = "../mainScreen.jsp";
+	}
+</script>
+
+<style>
+	#bt {
+	  background-color: grey;
+	  border-radius: 10px;
+	  color: white;
+	  padding: 15px 30px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 16px;
+	  margin: 4px 2px;
+	  cursor: pointer;
+	}
+</style>
+	<button id="bt" onclick="mainPageMove()">메인 페이지로 이동</button> &emsp;&emsp;
 
 
 </body>
