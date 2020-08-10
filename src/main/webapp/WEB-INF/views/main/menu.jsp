@@ -12,7 +12,7 @@
 		location.href = "gymPage";
 	}
 	function freeBoardPageMove() {
-		location.href = "http://localhost:8080/KeyWar/freeboard/freeboardSearch.do";
+		location.href = "getFreeboardSearch";
 	}
 </script>
 
