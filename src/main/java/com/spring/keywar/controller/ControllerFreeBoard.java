@@ -1,14 +1,20 @@
 package com.spring.keywar.controller;
 
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.keywar.dao.DaoFreeBoard;
+import com.spring.keywar.service.FileUploadService;
 
 @Controller
 public class ControllerFreeBoard {
@@ -16,7 +22,13 @@ public class ControllerFreeBoard {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	@RequestMapping("/freeboard/freeboardSearch")
+	@Autowired
+	FileUploadService fileUploadService;
+	
+	@Autowired
+	ServletContext servletContext;
+	
+	@RequestMapping("/getFreeboardSearch")
 	public String freeboardList(HttpServletRequest request, Model model) {
 		
 		// Dao 선언
@@ -86,7 +98,6 @@ System.out.println(dao.freeboardSearch_fbTitle(searchWord ,(page-1)*5));
 System.out.println(dao.freeboardSearch_mId(searchWord ,(page-1)*5));
 			}
 			
-			
 			// 페이지 처음 뜰 때, 테이블 출력
 			model.addAttribute("pageTotal", (int)pageTotal);
 			model.addAttribute("searchCategory", searchCategory);
@@ -113,7 +124,6 @@ System.out.println(dao.freeboardSearch_mId(searchWord ,(page-1)*5));
 			go = point * 10 + 1;
 		}
 
-		
 		model.addAttribute("point", point);
 		model.addAttribute("page", page);
 		model.addAttribute("min_num", min_num);
@@ -124,6 +134,55 @@ System.out.println(dao.freeboardSearch_mId(searchWord ,(page-1)*5));
 		return "freeboard/freeboardSearch";
 	}
 	
+	@RequestMapping("/freeboard/freeboardWrite")
+	public String freeboardWrite() {
+		return "freeboard/freeboardWrite";
+	}
+	
+	@RequestMapping("/freeboard/writeFreeboard")
+	public String upload(
+			HttpServletRequest request,
+			Model model,
+			@RequestParam("mId") String mId,
+			@RequestParam("fbTitle") String fbTitle,
+			@RequestParam("fbContent") String fbContent,
+			@RequestParam("files") MultipartFile files) {
+		
+		// 동적 저장 장소.
+		String uploadPath = request.getSession().getServletContext().getRealPath("/resources/");
+		String url = fileUploadService.restore(files, uploadPath);
+		model.addAttribute("url", url);
+		
+		// Dao 선언
+		DaoFreeBoard dao = sqlSession.getMapper(DaoFreeBoard.class);
+		
+		// 글 작성하기.
+		dao.freeboardWrite(fbTitle, fbContent, mId);
+		// 파일 첨부하기. (파일은 일단 절대값 넣음)
+		dao.freeboardWriteFile("123", url);
+		
+		return "freeboard/freeboardSearch";
+	}
+	
+	@RequestMapping("/freeboard/freeboardContent")
+	public String freeboardContent(HttpServletRequest request, Model model) {
+
+		// 게시물 번호 가져오기.
+		String fbSeqno = request.getParameter("fbSeqno");
+		
+		// Dao 선언
+		DaoFreeBoard dao = sqlSession.getMapper(DaoFreeBoard.class);
+		
+		// 게시물 컨텐트 띄우기.
+		model.addAttribute("content", dao.freeboardContent(fbSeqno));
+		// 조회수 카운트 해주기.
+		dao.viewCount(fbSeqno);
+		// 첨부파일 띄워주기.
+		model.addAttribute("file", dao.freeboardContentFile(fbSeqno));
+System.out.println(dao.freeboardContentFile(fbSeqno).get(0).getFfPhotoPath());
+		
+		return "freeboard/freeboardContent";
+	}
 	
 	
 

@@ -18,15 +18,7 @@ public class ControllerFighter {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	
-	@RequestMapping("/getFighterSearch_click")
-	public String fighterList_click() {
-		
-		return "fighter/fighterPage";
-	}
-	
-	
-	@RequestMapping("/getFighterSearch")
+	@RequestMapping("/fighter/fighterSearch")
 	public String fighterList(HttpServletRequest request, Model model) {
 		
 		// Dao 선언

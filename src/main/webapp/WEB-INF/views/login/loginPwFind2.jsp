@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	비밀번호는 ${findPw}입니다.
-	<a href="login">돌아가기</a>
+	비밀번호는 ${mPw}입니다.
+	<a href="login.jsp">돌아가기</a>
 </body>
 </html>
