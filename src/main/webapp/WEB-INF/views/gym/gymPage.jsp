@@ -8,15 +8,41 @@
 <head>
 <meta charset="UTF-8">
 <title>체육관정보</title>
+
+<script type="text/javascript">
+	function mainPageMove() {
+		location.href = "main";
+	}
+</script>
+
+<style>
+	#bt {
+	  background-color: grey;
+	  border-radius: 10px;
+	  color: white;
+	  padding: 15px 30px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 16px;
+	  margin: 4px 2px;
+	  cursor: pointer;
+	}
+</style>
+
 </head>
-
-	<frameset cols="50%,50%" frameborder="0" scrolling="no">
-		<frame name="left" src = "gymSearch.mbr" noresize>
-		<frame name="right" src = "gymContent.jsp" noresize>
-	</frameset>
-
 <body>
-
-
+	
+	<header>
+		<c:import url="../main/matchingListTop.jsp"></c:import>
+		<c:import url="../main/menu.jsp"></c:import>	
+	</header>
+	<div id="container">
+		<c:import url="/getGymSearch"></c:import>
+		<button id="bt" onclick="mainPageMove()">메인 페이지로 이동</button> &emsp;&emsp;
+	</div>
+	<footer>
+		<c:import url="../main/advertisement.jsp"></c:import>
+	</footer>
 </body>
 </html>

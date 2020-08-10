@@ -52,8 +52,17 @@ public class ControllerMember {
 							Double.valueOf(request.getParameter("weight")), 
 							request.getParameter("wClass"),
 							request.getParameter("id"));
+		
+		dao.writeReadyDao(
+						  request.getParameter("rSex"),
+						  request.getParameter("rAge1"),
+						  request.getParameter("rAge2"),
+						  request.getParameter("rArea"),
+						  request.getParameter("rwClass1"),
+						  request.getParameter("rwClass2"),
+						  request.getParameter("id"));
 					
-		return "redirect:member/memberSignUp";
+		return "login/login";
 	}
 	
 	// 체육관 회원가입 창
@@ -66,7 +75,7 @@ public class ControllerMember {
 	// 체육관 회원가입 정보
 	@RequestMapping("/gymSignUp") 
 	public String gymSignUp(HttpServletRequest request, Model model) {
-		System.out.println("짐다오시작");
+		
 		
 		DaoMember dao = sqlSession.getMapper(DaoMember.class);
 		dao.writeMemberDao(request.getParameter("id"), 
@@ -78,24 +87,82 @@ public class ControllerMember {
 							request.getParameter("intro"), 
 							request.getParameter("sports"), 
 							request.getParameter("type"));
-		System.out.println("멤버 회원가입했고" + request.getParameter("id"));
 		
 		dao.writeGymDao((request.getParameter("number1") + "-" + request.getParameter("number2") + "-" + request.getParameter("number3")), 
 						(request.getParameter("gArea") + request.getParameter("address")), 
 						Integer.parseInt(request.getParameter("price")), 
 						request.getParameter("id"));
-		System.out.println("체육관 회원가입도 했고" + request.getParameter("price"));
 		
 		dao.writeTimeTableDao(request.getParameter("id"),
 				  request.getParameter("timeTable1"),
 				  request.getParameter("timeTable2"));
-		System.out.println("타임테이블마저 했는데" + request.getParameter("timeTable1"));
 					
-		return "redirect:member/memberSignUp";
+		return "login";
 	}
 	
+	// 로그인 창
+	@RequestMapping("/login") 
+	public String login(Model model) {
+			
+		return "login/login";
+	}
+		
+	// 로그인 데이터베이스 확인
+	@RequestMapping("/loginCheck")
+	public String loginCheck(HttpServletRequest request, Model model) {
+			
+		DaoMember dao = sqlSession.getMapper(DaoMember.class);
+		String loginId = dao.loginCheckDao(request.getParameter("mId"), request.getParameter("mPw"));
+		if (loginId == null){
+			return "login/loginFalse";
+		}else {
+			model.addAttribute("loginId", loginId);
+			return "mainScreen";
+		}
+	}
+		
+	// 아이디 찾기 창
+	@RequestMapping("/loginIdFind") 
+	public String loginIdFind(Model model) {
+				
+		return "login/loginIdFind";
+	}
 	
+	// 아이디 찾기
+	@RequestMapping("/findId")
+	public String findId(HttpServletRequest request, Model model) {
+		
+		DaoMember dao = sqlSession.getMapper(DaoMember.class);
+		String findId = dao.findId(request.getParameter("mName"), request.getParameter("mTelno"), request.getParameter("mEmail"));
+		model.addAttribute("findId", findId);
+		
+		if (findId == null) {
+			return "login/loginFalse";
+		}else
+		return "login/loginIdFind2";
+	}
+		
+	// 비밀번호 찾기 창
+	@RequestMapping("/loginPwFind") 
+	public String loginPwFind(Model model) {
+					
+		return "login/loginPwFind";
+	}	
 	
+	// 아이디 찾기
+	@RequestMapping("/findPw")
+	public String findPw(HttpServletRequest request, Model model) {
+		
+		DaoMember dao = sqlSession.getMapper(DaoMember.class);
+		String findPw = dao.findPw(request.getParameter("mId"), request.getParameter("mName"), request.getParameter("mTelno"), request.getParameter("mEmail"));
+		model.addAttribute("findPw", findPw);
+		
+		if (findPw == null) {
+			return "login/loginFalse";
+		}else
+			return "login/loginPwFind2";
+	}
+
 	
 	
 }//----

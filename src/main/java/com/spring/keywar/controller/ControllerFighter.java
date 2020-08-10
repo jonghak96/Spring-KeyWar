@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spring.keywar.dao.DaoFighter;
-import com.spring.keywar.dao.DaoMember;
 
 @Controller
 public class ControllerFighter {
@@ -18,8 +17,14 @@ public class ControllerFighter {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	@RequestMapping("/fighter/fighterSearch")
-	public String fighterList(HttpServletRequest request, Model model) {
+	
+	@RequestMapping("/fighterSearch_click")
+	public String fighterSearch(HttpServletRequest request, Model model) {
+		return "fighter/fighterPage";
+	}
+	
+	@RequestMapping("/getFighterSearch")
+	public String getfighterList(HttpServletRequest request, Model model) {
 		
 		// Dao 선언
 		DaoFighter dao = sqlSession.getMapper(DaoFighter.class);
