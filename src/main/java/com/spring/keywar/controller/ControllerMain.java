@@ -24,11 +24,19 @@ public class ControllerMain {
 		return "fighter/fighterPage";
 	}
 	
-	@RequestMapping("/fighterSearch.kf")
-	public String fighterSearch(Model model) {
+	// 비밀번호 찾기 창
+	@RequestMapping("/gymPage") 
+	public String loginPwFind(Model model) {
+					
+		return "gym/gymPage";
+	}	
+	
+	@RequestMapping("/logout") 
+	public String logout(Model model) {
 		
-		return "fighterSearch";
-	}
+		return "mainScreen";
+	}	
+	
 	
 
 }

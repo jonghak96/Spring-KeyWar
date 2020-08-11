@@ -6,10 +6,10 @@
 		location.href = "http://localhost:8080/KeyWar/fighter/fighterPage.jsp";
 	}
 	function boardPageMove() {
-		location.href = "/KeyWar/board/boardSearch.do";
+		location.href = "videoBoard";
 	}
 	function gymInfoPageMove() {
-		location.href = "http://localhost:8080/KeyWar/gym/gymPage.jsp";
+		location.href = "gymPage";
 	}
 	function freeBoardPageMove() {
 		location.href = "http://localhost:8080/KeyWar/freeboard/freeboardSearch.do";
