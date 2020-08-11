@@ -44,7 +44,9 @@ public class ControllerMember {
 
 	// 회원가입 정보 입력
 	@RequestMapping("/customerSignUp") 
-	public String cstomerSignUp(HttpServletRequest request, Model model, @RequestParam("files") MultipartFile files) {				
+	public String cstomerSignUp(HttpServletRequest request, Model model, @RequestParam("files") MultipartFile files) {		
+		
+		System.out.println(files);
 		
 		DaoMember dao = sqlSession.getMapper(DaoMember.class);
 		dao.writeMemberDao(request.getParameter("id"), 
@@ -63,10 +65,11 @@ public class ControllerMember {
 				model.addAttribute("url", url);
 				
 				// 파일 첨부하기. (파일은 일단 절대값 넣음)
-				dao.customerWriteFile("123", url, request.getParameter("id"));
 		
 		dao.writeCustomerDao(request.getParameter("sex"), 
 							request.getParameter("age"), 
+							"123",
+							url,
 							Double.valueOf(request.getParameter("height")), 
 							Double.valueOf(request.getParameter("weight")), 
 							request.getParameter("wClass"),
