@@ -11,7 +11,7 @@
 </head>
 <body>
 
-	<form action="/KeyWar/freeboard/freeboardUpdate" method="post">
+	<form action="../freeboardUpdate" method="get">
 		<table border="1">
 			<tr>
 				<td>글번호</td>
@@ -44,7 +44,7 @@
 				<c:forEach items="${file }" var="file" varStatus="vs">
 			<tr>
 				<td>첨부파일${vs.count}</td>
-				<td><img src="keywar/resources/${file.ffPhotoPath }" alt="photo" width="200" height="200"></td>
+				<td><img src="/keywar/resources/${file.ffPhotoPath }" alt="photo" width="200" height="200"></td>
 			</tr>
 				</c:forEach>
 
@@ -52,9 +52,9 @@
 			<tr>
 				<td colspan="2"><input type="submit" value="수정">
 				
-				<a href = "/KeyWar/freeboard/freeboardLike?fbSeqno=${content.fbSeqno }">좋아요</a>
-				<a href = "/KeyWar/freeboard/freeboardDelete?fbSeqno=${content.fbSeqno }">삭제</a>
-				<a href = "/KeyWar/freeboard/freeboardSearch">목록보기</a></td>
+				<a href = "../likeCount?fbSeqno=${content.fbSeqno }">좋아요</a>
+				<a href = "../freeboardDelete?fbSeqno=${content.fbSeqno }">삭제</a>
+				<a href = "../getFreeboardSearch">목록보기</a></td>
 			</tr>
 		</table>
 	</form>
@@ -65,20 +65,20 @@
 		</tr>
 			
 		<c:forEach items="${commentContent}" var="fc">
-		<form action="/KeyWar/freeboard/freeboardcommentUpdate" method="post">
+		<form action="../freeboardCommentUpdate" method="get">
 		<tr>
 			<td><input type="text" name="fcSeqno" size="5" value="${fc.fcSeqno}" readonly="readonly"></td>
 			<td><input type="text" name="fcWriter" size="10" value="${fc.fcWriter}" readonly="readonly"></td>
 			<td><input type="text" name="fcContent" size="50" value="${fc.fcContent}"></td>
 			<td><input type="text" name="fcDate" size="20" value="${fc.fcDate}" readonly="readonly"></td>
 			<td><input type="submit" value="수정">
-			<td><a href = "/KeyWar/freeboard/freeboardcommentDelete?fcSeqno=${fc.fcSeqno}">삭제</a></td>
+			<td><a href = "../freeboardCommentDelete?fcSeqno=${fc.fcSeqno}">삭제</a></td>
 		</tr>
 		</form>
 		</c:forEach>
 	</table>
 	
-	<form action="/KeyWar/freeboard/freeboardcommentWrite" method="post">
+	<form action="../freeboardCommentWrite" method="get">
 			<textarea rows="3" cols="50" name="fcContent"></textarea>
 			<input type="hidden" name="mId" value="${loginId }">
 			<input type="hidden" name="fbSeqno" value="${content.fbSeqno}">
