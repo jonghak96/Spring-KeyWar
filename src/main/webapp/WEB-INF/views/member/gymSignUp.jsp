@@ -183,7 +183,7 @@
 				</select> 
 				<input type="text" name="number2" size="4" maxlength="4" id="number2"> - 
 				<input type="text" name="number3" size="4" maxlength="4" id="number3"> 	<br>
-		*핸드폰 번호 : <select name="telno1">
+		*핸드폰 번호 : <select name="telno">
 					<option value="010" selected="selected">010</option>
 					<option value="011">011</option>
 					<option value="016">016</option>

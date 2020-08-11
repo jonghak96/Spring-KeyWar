@@ -37,7 +37,7 @@ public class ControllerMain {
 	@RequestMapping("/logout") 
 	public String logout(Model model) {
 		
-		return "mainScreen";
+		return "login/logout";
 	}	
 	
 	

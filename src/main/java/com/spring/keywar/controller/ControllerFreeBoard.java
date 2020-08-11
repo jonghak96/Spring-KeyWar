@@ -58,15 +58,12 @@ public class ControllerFreeBoard {
 			request.setAttribute("searchWord", "");
 			
 			rowTotal = dao.count_freeboardList();
-System.out.println(rowTotal);
 			pageTotal = (double)rowTotal / 5;
 			pageTotal = Math.ceil(pageTotal);
 			
 			
 			// 페이지 처음 뜰 때, 테이블 출력
 			model.addAttribute("search",dao.freeboardList((page-1)*5));
-System.out.println(dao.freeboardList((page-1)*5).get(0).getFbSeqno());
-System.out.println(dao.freeboardList((page-1)*5).get(1).getFbSeqno());
 			model.addAttribute("pageTotal", (int)pageTotal);
 			
 		} else {
@@ -76,12 +73,10 @@ System.out.println(dao.freeboardList((page-1)*5).get(1).getFbSeqno());
 			
 			if(searchCategory.equals("fbTitle")) {
 				rowTotal = dao.count_freeboardSearch_fbTitle(searchWord);
-System.out.println(rowTotal);
 			}
 			
 			if(searchCategory.equals("mId")) {
 				rowTotal = dao.count_freeboardSearch_mId(searchWord);
-System.out.println(rowTotal);
 			}
 			
 			pageTotal = (double)rowTotal / 5;
@@ -89,12 +84,10 @@ System.out.println(rowTotal);
 			
 			if(searchCategory.equals("fbTitle")) {
 				model.addAttribute("search",dao.freeboardSearch_fbTitle(searchWord ,(page-1)*5));
-System.out.println(dao.freeboardSearch_fbTitle(searchWord ,(page-1)*5));
 			}
 			
 			if(searchCategory.equals("mId")) {
 				model.addAttribute("search",dao.freeboardSearch_mId(searchWord ,(page-1)*5));
-System.out.println(dao.freeboardSearch_mId(searchWord ,(page-1)*5));
 			}
 			
 			// 페이지 처음 뜰 때, 테이블 출력

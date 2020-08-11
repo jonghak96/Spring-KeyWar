@@ -28,6 +28,9 @@ public class DtoMemberCustomer {
 	int cDraw;
 	int member_mSeqno;
 	
+	public DtoMemberCustomer() {
+		// TODO Auto-generated constructor stub
+	}
 	
 //	public KDtoMemberCustomer(int mSeqno, String mId, String mSports, int cAge, double cHeight, double cWeight,
 //			int cWin, int cLose, int cDraw, int member_mSeqno) {

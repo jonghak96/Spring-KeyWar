@@ -27,8 +27,8 @@
 			</div>		
 		</div>
 		<div id="container3">
-			<form action="matchingRecord.match" method="post">
-				<input type="hidden" value="<%=session.getAttribute("mId") %>" name="mId"> 
+			<form action="matchingList" method="post">
+				<input type="hidden" value="${loginId }" name="mId"> 
 				<input type="hidden" value="${MATCHSEQNO[status.index].mSuccess }" name="mType" id="${status.index }mType">
 				<input type="hidden" value="${MATCHSEQNO[status.index].matchSeqno }" name="matchSeqno" id="${status.index }matchSeqno">
 				<c:if test="${MATCHSEQNO[status.index].mSuccess < 3 }"> 
