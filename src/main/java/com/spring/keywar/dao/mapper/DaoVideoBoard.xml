@@ -48,9 +48,34 @@
 	<update id="viewCount">
 		UPDATE BOARD SET BVIEW=BVIEW+1 WHERE BSEQNO = #{0}
 	</update>
-
 	
+	<select id="videoboardCommentContent" resultType="com.spring.keywar.dto.DtoBoardComment">
+		SELECT CSEQNO, MID AS CWRITER, CCONTENT, CDATE FROM BOARDCOMMENT AS C, KEYWAR.MEMBER AS M, BOARD AS B WHERE M.MSEQNO = C.MEMBER_MSEQNO AND B.BSEQNO = C.BOARD_BSEQNO AND BOARD_BSEQNO = #{0}
+	</select>
 
+	<update id="likeCount">
+		UPDATE BOARD SET BLIKE=BLIKE+1 WHERE BSEQNO= #{0}
+	</update>
+	
+	<delete id="videoboardDelete">
+		DELETE FROM BOARD WHERE BSEQNO = #{0}
+	</delete>
+	
+	<update id="videoboardUpdate">
+		UPDATE BOARD SET BTITLE = #{0}, BCONTENT = #{1} WHERE BSEQNO= #{2}
+	</update>
+	
+	<insert id="videoboardCommentWrite">
+		INSERT INTO BOARDCOMMENT (CCONTENT, CDATE, BOARD_BSEQNO, MEMBER_MSEQNO) VALUES (#{0}, NOW(), #{1}, (SELECT MSEQNO FROM KEYWAR.MEMBER WHERE MID = #{2}))
+	</insert>
+	
+	<delete id="videoboardCommentDelete">
+		DELETE FROM BOARDCOMMENT WHERE CSEQNO = #{0}
+	</delete>
+	
+	<update id="videoboardCommentUpdate">
+		UPDATE BOARDCOMMENT SET CCONTENT = #{0} WHERE CSEQNO= #{1}
+	</update>
 
 
 </mapper>

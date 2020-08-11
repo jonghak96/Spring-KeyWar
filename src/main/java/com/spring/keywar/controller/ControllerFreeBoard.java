@@ -144,13 +144,12 @@ public class ControllerFreeBoard {
 		
 		// 동적 저장 장소.
 		String uploadPath = request.getSession().getServletContext().getRealPath("/resources/");
-System.out.println(uploadPath);
+		System.out.println(uploadPath);
 		String url = fileUploadService.restore(files, uploadPath);
 		model.addAttribute("url", url);
 		
 		// Dao 선언
 		DaoFreeBoard dao = sqlSession.getMapper(DaoFreeBoard.class);
-		
 		// 글 작성하기.
 		dao.freeboardWrite(fbTitle, fbContent, mId);
 		// 파일 첨부하기. (파일은 일단 절대값 넣음)
