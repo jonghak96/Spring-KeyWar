@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	아이디는 ${findId} 입니다.
-	<a href="login">돌아가기</a>
+	아이디는 ${mId} 입니다.
+	<a href="login.jsp">돌아가기</a>
 </body>
 </html>

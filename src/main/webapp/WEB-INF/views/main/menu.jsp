@@ -3,7 +3,7 @@
     
 <script type="text/javascript">
 	function fighterPageMove() {
-		location.href = "fighterPage";
+		location.href = "http://localhost:8080/KeyWar/fighter/fighterPage.jsp";
 	}
 	function boardPageMove() {
 		location.href = "videoBoard";
@@ -12,7 +12,7 @@
 		location.href = "gymPage";
 	}
 	function freeBoardPageMove() {
-		location.href = "http://localhost:8080/KeyWar/freeboard/freeboardSearch.do";
+		location.href = "getFreeboardSearch";
 	}
 </script>
 

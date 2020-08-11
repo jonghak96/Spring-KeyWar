@@ -97,7 +97,7 @@ public class ControllerMember {
 				  request.getParameter("timeTable1"),
 				  request.getParameter("timeTable2"));
 					
-		return "login";
+		return "login/login";
 	}
 	
 	// 로그인 창

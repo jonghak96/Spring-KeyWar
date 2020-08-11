@@ -13,7 +13,7 @@
 <body>
 	<h1>자유게시판</h1>
 
-	<form action="../freeboard/freeboardSearch.do" method="post">
+	<form action="../freeboard/freeboardSearch" method="post">
 		<select name="searchCategory">
 			<option value="fbTitle">제목</option>
 			<option value="mId">작성자</option>
@@ -38,7 +38,7 @@
 		<tr>
 			 <td>${search.fbSeqno }</td>
 			 <td>${search.mId }</td>
-			 <td><a href = "../freeboard/freeboardContent.do?fbSeqno=${search.fbSeqno }">${search.fbTitle }</a></td>
+			 <td><a href = "freeboard/freeboardContent?fbSeqno=${search.fbSeqno }">${search.fbTitle }</a></td>
 			 <td>${search.fbDate }</td>
 			 <td>${search.fbLike }</td>
 			 <td>${search.fbView }</td>
@@ -48,27 +48,27 @@
 	
 	
 	
-	<a href="freeboardSearch.do?page=1&searchCategory=${searchCategory}&searchWord=${searchWord}">&lt;&lt;</a> &nbsp;
+	<a href="freeboardSearch?page=1&searchCategory=${searchCategory}&searchWord=${searchWord}">&lt;&lt;</a> &nbsp;
 	
 	<c:if test="${point >= 2}">
-		<a href="freeboardSearch.do?page=${back }&searchCategory=${searchCategory}&searchWord=${searchWord}">&lt;</a> &nbsp;
+		<a href="freeboardSearch?page=${back }&searchCategory=${searchCategory}&searchWord=${searchWord}">&lt;</a> &nbsp;
 	</c:if>
 	
 	<c:forEach var="i" begin="${min_num }" end="${max_num }">
-		<a href= "freeboardSearch.do?page=${i }&searchCategory=${searchCategory}&searchWord=${searchWord}">${i }</a> &nbsp;
+		<a href= "freeboardSearch?page=${i }&searchCategory=${searchCategory}&searchWord=${searchWord}">${i }</a> &nbsp;
 	</c:forEach>
 	
 	<c:if test="${point<= (pageTotal-1)/10}">
-		<a href="freeboardSearch.do?page=${go }&searchCategory=${searchCategory}&searchWord=${searchWord}">&gt;</a> &nbsp;
+		<a href="freeboardSearch?page=${go }&searchCategory=${searchCategory}&searchWord=${searchWord}">&gt;</a> &nbsp;
 	</c:if>
 	
-	<a href="freeboardSearch.do?page=${pageTotal}&searchCategory=${searchCategory}&searchWord=${searchWord}">&gt;&gt;</a> &nbsp;
+	<a href="freeboardSearch?page=${pageTotal}&searchCategory=${searchCategory}&searchWord=${searchWord}">&gt;&gt;</a> &nbsp;
 	
 	
 	<br>
 	<br>
 	
-	<form action="/KeyWar/freeboard/freeboardWrite.jsp" method="post">
+	<form action="/KeyWar/freeboard/freeboardWrite" method="post">
 		<input type="submit" value="글작성">
 	</form>
 

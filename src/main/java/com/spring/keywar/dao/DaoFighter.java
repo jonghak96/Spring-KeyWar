@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import com.spring.keywar.dto.DtoMember;
 
 
-
-
 public interface DaoFighter {
 	// 초기 선수 리스트.
 	public int count_fighterList();
