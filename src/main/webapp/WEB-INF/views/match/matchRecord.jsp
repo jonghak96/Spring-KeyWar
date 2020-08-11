@@ -19,7 +19,7 @@
 		console.log("type = " + mType);
 				
 		$.ajax({
-			url : "matchingList.match",
+			url : "matchingList",
 			type : "POST",
 			dataType : "HTML", 
 			contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
@@ -42,11 +42,11 @@
 		var type = document.getElementById(indexType).value;
 		var seqno = document.getElementById(indexSeqno).value;
 				
-		this.location.href = "matchingRecord.match?mId=${mId}&mType=" + type + "&matchSeqno=" + seqno + "&cancle=cancle";
+		this.location.href = "matchingList?mId=${mId}&mType=" + type + "&matchSeqno=" + seqno + "&cancle=cancle";
 	}
 	
 	function mainPageMove() {
-		location.href = "../mainScreen.jsp"
+		location.href = "main"
 	}
 	
 </script>

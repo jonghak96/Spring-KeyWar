@@ -2,7 +2,7 @@ package com.spring.keywar.dto;
 
 import java.sql.Timestamp;
 
-public class DtoBoard {
+public class DtoVideoBoard {
 	
 
 	// board
@@ -26,13 +26,13 @@ public class DtoBoard {
 	
 	
 	// Constructor
-	public DtoBoard() {
+	public DtoVideoBoard() {
 		// TODO Auto-generated constructor stub
 	}
 	
 
 	// 영상게시판 리스트 올려주는 생성자.
-	public DtoBoard(String fPhotoPath, int bSeqno, String mId, String bTitle, Timestamp bDate, int bView) {
+	public DtoVideoBoard(String fPhotoPath, int bSeqno, String mId, String bTitle, Timestamp bDate, int bView) {
 		super();
 		this.fPhotoPath = fPhotoPath;
 		this.bSeqno = bSeqno;
@@ -43,7 +43,7 @@ public class DtoBoard {
 	}
 
 	// 영상게시판 컨텐트
-	public DtoBoard(int bSeqno, String fVideoPath, String mId, Timestamp bDate, int bLike, int bView, String bTitle, String bContent) {
+	public DtoVideoBoard(int bSeqno, String fVideoPath, String mId, Timestamp bDate, int bLike, int bView, String bTitle, String bContent) {
 		super();
 		this.bSeqno = bSeqno;
 		this.bTitle = bTitle;

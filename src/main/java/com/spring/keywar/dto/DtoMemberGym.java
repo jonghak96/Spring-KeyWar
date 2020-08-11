@@ -28,6 +28,9 @@ public class DtoMemberGym {
 	String tTimeTable1;
 	String tTimeTable2;
 	
+	public DtoMemberGym() {
+		// TODO Auto-generated constructor stub
+	}
 		
 	public DtoMemberGym(int mSeqno, String mName, String gAddress, int gRentalPrice) {
 		super();

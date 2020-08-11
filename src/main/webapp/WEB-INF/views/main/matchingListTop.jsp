@@ -38,7 +38,7 @@
 		<c:when test="${empty loginId}"><a href="login"><button>로그인</button></a> | <a href="signUp_view"><button>회원가입</button></a></c:when>
 		<c:otherwise>
 			${loginId }님 안녕하세요 | <a href="logout">로그아웃</a><br>
-			<a href="../KeyWar/match/matchRecord.jsp">매칭 현황 보러가기</a>		
+			<a href="matchRecord">매칭 현황 보러가기</a>		
 		</c:otherwise>
 	</c:choose>	
 </div>
