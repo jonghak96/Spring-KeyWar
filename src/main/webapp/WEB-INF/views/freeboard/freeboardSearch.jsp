@@ -38,7 +38,7 @@
 		<tr>
 			 <td>${search.fbSeqno }</td>
 			 <td>${search.mId }</td>
-			 <td><a href = "../freeboard/freeboardContent?fbSeqno=${search.fbSeqno }">${search.fbTitle }</a></td>
+			 <td><a href = "freeboard/freeboardContent?fbSeqno=${search.fbSeqno }">${search.fbTitle }</a></td>
 			 <td>${search.fbDate }</td>
 			 <td>${search.fbLike }</td>
 			 <td>${search.fbView }</td>
