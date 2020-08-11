@@ -53,32 +53,25 @@ public class ControllerFighter {
 
 			// 선수 총 컬럼 수 불러옴.
 			rowTotal = dao.count_fighterList();
-System.out.println(rowTotal);
 			pageTotal = (double) rowTotal / 10;
 			pageTotal = Math.ceil(pageTotal);
 			
 			model.addAttribute("search", dao.fighterList((page-1)*10));
-System.out.println(dao.fighterList((page-1)*10));
 			model.addAttribute("pageTotal", (int)pageTotal);
 			
 		} else {
 			
 			searchCategory = request.getParameter("searchCategory");
 			searchWord = request.getParameter("searchWord");
-System.out.println(searchCategory);
-System.out.println(searchWord);
 			
 			if(searchCategory.equals("mId")) {
 				rowTotal = dao.count_fighterSearch_mId(searchWord);
-System.out.println(rowTotal);
 			}
 			if(searchCategory.equals("mArea")) {
 				rowTotal = dao.count_fighterSearch_mArea(searchWord);
-System.out.println(rowTotal);
 			}
 			if(searchCategory.equals("mSports")) {
 				rowTotal = dao.count_fighterSearch_mSports(searchWord);
-System.out.println(rowTotal);
 			}
 				
 			pageTotal = (double)rowTotal / 10;
@@ -87,11 +80,9 @@ System.out.println(rowTotal);
 			
 			if(searchCategory.equals("mId") | searchCategory.equals("mArea")) {
 				model.addAttribute("search", dao.fighterSearch_mIdmArea(searchCategory, searchWord, (page-1)*10));
-System.out.println(dao.fighterSearch_mIdmArea(searchCategory, searchWord, (page-1)*10));
 			}
 			if(searchCategory.equals("mSports")) {
 				model.addAttribute("search", dao.fighterSearch_mSports(searchWord, (page-1)*10));
-System.out.println(dao.fighterSearch_mSports(searchWord, (page-1)*10));
 			}
 			
 			
@@ -136,7 +127,7 @@ System.out.println(dao.fighterSearch_mSports(searchWord, (page-1)*10));
 		// Dao 선언
 		DaoFighter dao = sqlSession.getMapper(DaoFighter.class);
 		model.addAttribute("content", dao.fighterContent(request.getParameter("mId")));
-		
+		model.addAttribute("GYMLIST", dao.fighterGymList());
 		
 		
 		return "fighter/fighterContent";

@@ -12,12 +12,14 @@ public class ControllerMain {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	// 메인스크린
 	@RequestMapping("/main")
 	public String main(Model model) {
 		
 		return "mainScreen";
 	}
 	
+	// 선수정보 페이지로 이동
 	@RequestMapping("/fighterPage")
 	public String fighterPage(Model model) {
 		
@@ -31,10 +33,11 @@ public class ControllerMain {
 		return "gym/gymPage";
 	}	
 	
+	// 로그아웃
 	@RequestMapping("/logout") 
 	public String logout(Model model) {
 		
-		return "mainScreen";
+		return "login/logout";
 	}	
 	
 	

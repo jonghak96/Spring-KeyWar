@@ -11,6 +11,7 @@ public interface DaoMember {
 	public String loginCheckDao(String mId, String mPw);
 	public String findId(String mName, String mTelno, String mEmail);
 	public String findPw(String mId, String mName, String mTelno, String mEmail);
+	public void customerWriteFile(String cPhoto, String cPhotoPath, String mId);
 	
 	
 	
