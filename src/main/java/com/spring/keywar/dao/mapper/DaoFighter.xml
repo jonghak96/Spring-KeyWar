@@ -5,4 +5,42 @@
 
 <mapper namespace="com.spring.keywar.dao.DaoFighter">
 
+	<select id="count_fighterList" resultType="int">
+		SELECT COUNT(MSEQNO) FROM KEYWAR.MEMBER WHERE MTYPE='C'
+	</select>
+
+	<select id="fighterList" resultType="com.spring.keywar.dto.DtoMember">
+		SELECT MID, CWIN, CDRAW, CLOSE, MAREA, CHEIGHT, CWEIGHT, MSPORTS FROM KEYWAR.MEMBER AS M, CUSTOMER AS C WHERE M.MSEQNO = C.MEMBER_MSEQNO ORDER BY CWIN DESC LIMIT #{0}, 10
+	</select>
+	
+	<select id="count_fighterSearch_mId" resultType="int">
+		SELECT COUNT(MSEQNO) FROM KEYWAR.MEMBER WHERE MTYPE='C' AND MID = #{0}
+	</select>
+	
+	<select id="count_fighterSearch_mArea" resultType="int">
+		SELECT COUNT(MSEQNO) FROM KEYWAR.MEMBER WHERE MTYPE='C' AND MAREA LIKE CONCAT('%',#{0},'%')
+	</select>
+	
+	<select id="count_fighterSearch_mSports" resultType="int">
+		SELECT COUNT(MSEQNO) FROM KEYWAR.MEMBER WHERE MTYPE='C' AND MSPORTS = #{0}
+	</select>
+	
+	<select id="fighterSearch_mIdmArea" parameterType="String" resultType="com.spring.keywar.dto.DtoMember">
+		SELECT MID, CWIN, CDRAW, CLOSE, MAREA, CHEIGHT, CWEIGHT, MSPORTS FROM KEYWAR.MEMBER AS M, CUSTOMER AS C WHERE M.MSEQNO = C.MEMBER_MSEQNO AND ${param1} LIKE CONCAT('%',#{param2},'%') ORDER BY CWIN DESC LIMIT #{param3}, 10
+	</select>
+	
+	<select id="fighterSearch_mSports" resultType="com.spring.keywar.dto.DtoMember">
+		SELECT MID, CWIN, CDRAW, CLOSE, MAREA, CHEIGHT, CWEIGHT, MSPORTS FROM KEYWAR.MEMBER AS M, CUSTOMER AS C WHERE M.MSEQNO = C.MEMBER_MSEQNO AND MSPORTS = #{0} ORDER BY CWIN DESC LIMIT #{1}, 10
+	</select>
+	
+	<select id="fighterContent" resultType="com.spring.keywar.dto.DtoMember">
+		SELECT CPHOTOPATH, MID, MNAME, CSEX, CAGE, MAREA, CWIN, CDRAW, CLOSE, CHEIGHT, CWEIGHT, CWCLASS, MSPORTS, MINTRO FROM KEYWAR.MEMBER AS M, CUSTOMER AS C WHERE M.MSEQNO = C.MEMBER_MSEQNO AND MID = #{0}
+	</select>
+	
+	<select id="fighterGymList" resultType="com.spring.keywar.dto.DtoMemberGym">
+		SELECT M.MSEQNO, M.MNAME, G.GADDRESS, G.GRENTALPRICE, T.TTIMETABLE1, T.TTIMETABLE2 
+		FROM KEYWAR.MEMBER AS M, GYM AS G, TIMETABLE AS T 
+		WHERE M.MSEQNO = G.MEMBER_MSEQNO AND T.MEMBER_MSEQNO = M.MSEQNO;
+	</select>
+
 </mapper>

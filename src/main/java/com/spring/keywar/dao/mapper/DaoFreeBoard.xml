@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.keywar.dao.DaoFreeBoard">
+
+	<select id="count_freeboardList" resultType="int">
+		SELECT COUNT(FBSEQNO) FROM FREEBOARD
+	</select>
+	
+	<select id="freeboardList" resultType="com.spring.keywar.dto.DtoFreeBoard">
+		SELECT FBSEQNO, MID, FBTITLE, FBDATE, FBLIKE, FBVIEW FROM FREEBOARD AS FB, KEYWAR.MEMBER AS M WHERE FB.MEMBER_MSEQNO = M.MSEQNO ORDER BY FBSEQNO DESC LIMIT #{0}, 5
+	</select>
+	
+	<select id="count_freeboardSearch_fbTitle" resultType="int">
+		SELECT COUNT(FBSEQNO) FROM FREEBOARD WHERE FBTITLE LIKE CONCAT('%',#{0},'%')
+	</select>
+	
+	<select id="count_freeboardSearch_mId" resultType="int">
+		SELECT COUNT(FBSEQNO) FROM FREEBOARD AS FB, KEYWAR.MEMBER AS M WHERE FB.MEMBER_MSEQNO = M.MSEQNO AND M.MID = #{0}
+	</select>
+	
+	<select id="freeboardSearch_fbTitle" resultType="com.spring.keywar.dto.DtoFreeBoard">
+		SELECT FBSEQNO, MID, FBTITLE, FBDATE, FBLIKE, FBVIEW FROM FREEBOARD AS F, KEYWAR.MEMBER AS M WHERE F.MEMBER_MSEQNO = M.MSEQNO AND FBTITLE LIKE CONCAT('%',#{0},'%') ORDER BY FBSEQNO DESC LIMIT #{1}, 5
+	</select>
+	
+	<select id="freeboardSearch_mId" resultType="com.spring.keywar.dto.DtoFreeBoard">
+		SELECT FBSEQNO, MID, FBTITLE, FBDATE, FBLIKE, FBVIEW FROM FREEBOARD AS FB, KEYWAR.MEMBER AS M WHERE FB.MEMBER_MSEQNO = M.MSEQNO AND MID = #{0} ORDER BY FBSEQNO DESC LIMIT #{1}, 5
+	</select>
+	
+	<insert id="freeboardWrite">
+		INSERT INTO FREEBOARD (FBTITLE, FBCONTENT, FBDATE, MEMBER_MSEQNO) VALUES (#{0}, #{1}, NOW(), (SELECT MSEQNO FROM KEYWAR.MEMBER WHERE MID = #{2}))
+	</insert>
+	
+	<insert id="freeboardWriteFile">
+		INSERT INTO FREEBOARDFILE (FFPHOTO, FFPHOTOPATH, FREEBOARD_FBSEQNO) VALUES (#{0}, #{1}, (SELECT MAX(FBSEQNO) FROM FREEBOARD))
+	</insert>
+	
+	<select id="freeboardContent" resultType="com.spring.keywar.dto.DtoFreeBoard">
+		SELECT MID, FBDATE, FBLIKE, FBVIEW, FBTITLE, FBCONTENT FROM FREEBOARD AS FB, KEYWAR.MEMBER AS M, FREEBOARDFILE AS FF WHERE FB.MEMBER_MSEQNO = M.MSEQNO AND FB.FBSEQNO = FF.FREEBOARD_FBSEQNO AND FBSEQNO = #{0};
+	</select>
+	
+	<update id="viewCount">
+		UPDATE FREEBOARD SET FBVIEW=FBVIEW+1 WHERE FBSEQNO = #{0}
+	</update>
+	
+	<select id="freeboardContentFile" resultType="com.spring.keywar.dto.DtoFreeBoard">
+		SELECT FFPHOTOPATH FROM FREEBOARD AS FB, FREEBOARDFILE AS FF WHERE FB.FBSEQNO = FF.FREEBOARD_FBSEQNO AND FBSEQNO = #{0}
+	</select>
+
+</mapper>

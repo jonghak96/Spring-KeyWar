@@ -4,5 +4,40 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.spring.keywar.dao.DaoMember">
-
+	<insert id="writeMemberDao">
+		INSERT INTO KEYWAR.MEMBER (MID, MPW, MNAME, MTELNO, MEMAIL, MAREA, MINTRO, MDATE, MSPORTS, MTYPE) VALUES(#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, now(), #{param8}, #{param9})
+	</insert>
+	
+	<insert id="writeCustomerDao">
+		INSERT INTO KEYWAR.CUSTOMER (CSEX, CAGE, CHEIGHT, CWEIGHT, CWCLASS, MEMBER_MSEQNO) VALUES(#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, (SELECT M.MSEQNO FROM KEYWAR.MEMBER AS M WHERE M.MID = #{param6}))
+	</insert>
+	
+	<insert id="writeTimeTableDao">
+		INSERT INTO TIMETABLE (MEMBER_MSEQNO, TTIMETABLE1, TTIMETABLE2) VALUES ((select mSeqno from keyWar.member where mId = #{param1}), #{param2}, #{param3})
+	</insert>
+	
+	<insert id="writeGymDao">
+		INSERT INTO GYM (GNUMBER, GADDRESS, GRENTALPRICE, MEMBER_MSEQNO) VALUES (#{param1}, #{param2}, #{param3}, (select mSeqno from keyWar.member where mId = #{param4}))
+	</insert>
+	
+	<select id="loginCheckDao" resultType="String">
+		select mId from keyWar.member where mId = #{param1} and mPw = #{param2}
+	</select>
+	
+	<select id="findId" resultType="String">
+		select mId from KeyWar.member where mName = #{param1} and mTelno = #{param2} and mEmail = #{param3};
+	</select>
+	
+	<select id="findPw" resultType="String">
+		select mPw from KeyWar.member where mId = #{param1} and mName = #{param2} and mTelno = #{param3} and mEmail = #{param4};
+	</select>
+	
+	<insert id="writeReadyDao">
+		INSERT INTO KEYWAR.READY (RSEX, RAGE1, RAGE2, RAREA, RWCLASS1, RWCLASS2, MEMBER_MSEQNO) VALUES (#{0}, #{1}, #{2}, #{3}, #{4}, #{5}, (SELECT M.MSEQNO FROM KEYWAR.MEMBER AS M WHERE M.MID = #{6}));
+	</insert>
+	
+	<insert id="customerWriteFile">
+		INSERT INTO CUSTOMER (cPhoto, cPhotoPath) VALUES (#{0}, #{1} FROM FREEBOARD) where cSeqno = #{2})
+	</insert>
+	
 </mapper>

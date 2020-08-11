@@ -24,7 +24,7 @@
 		
 		if (specialCheck(id) == 1 || passwordCheck(pw) == 1 || passwordCheck(pwCheck) == 1 || specialCheck(name) == 1 || specialCheck(sports) == 1 ||
 				priceCheck(price) == 1 || specialCheck(telno2) == 1 || specialCheck(telno3) == 1 || emailCheck(email1) == 1 || emailCheck(email2) == 1 || specialCheck(address) == 1 || 
-				idCheck == "true" || pwidOverlapCheck(pw, pwCheck) == 1)
+				/* idCheck == "true" ||  */pwidOverlapCheck(pw, pwCheck) == 1)
 			return false;
 		
 		return true;
@@ -135,7 +135,7 @@
 
 </head>
 <body>
-	<form action="gymSignUp.mbr" method="post" enctype="Multipart/form-data" onsubmit="return formSubmit()">
+	<form action="gymSignUp" method="get" enctype="Multipart/form-data" onsubmit="return formSubmit()">
 		<h6 id="c1">*필수 입력</h6>
 		*아이디 : <input type="text" name="id" id="id" maxlength="17">
 		<button type="button" onclick="idOverlapCheck()">아이디 중복확인</button> <span id="idCheck"></span>				<br>
@@ -183,7 +183,7 @@
 				</select> 
 				<input type="text" name="number2" size="4" maxlength="4" id="number2"> - 
 				<input type="text" name="number3" size="4" maxlength="4" id="number3"> 	<br>
-		*핸드폰 번호 : <select name="telno1">
+		*핸드폰 번호 : <select name="telno">
 					<option value="010" selected="selected">010</option>
 					<option value="011">011</option>
 					<option value="016">016</option>

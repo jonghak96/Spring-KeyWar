@@ -12,7 +12,7 @@
 		var mId = $(select).text();
 		
 		$.ajax({
-			url : "fighterContent.kf",
+			url : "fighter/fighterContent",
 			type : "POST",
 			dataType : "html", 
 			data : {
@@ -47,9 +47,10 @@
 
 <div id="kscontainer">
 <div id="kscontainer1">
+
 	<h1>선수정보</h1>	
 
-	<form action="/KeyWar/fighter/fighterSearch.kf" method="post">
+	<form action="fighterSearch_click" method="post">
 		<select name="searchCategory">
 			<option value="mId">아이디</option>
 			<option value="mArea">지역</option>
@@ -73,7 +74,7 @@
 		</tr>
 		<c:forEach items="${search }" var="search" varStatus="rank">
 		<tr>
-			 <td>${rank.count + ((point-1)*10) }</td>
+			 <td>${rank.count }</td>
 			 <td><a href="#" onclick="fighterContent(this)">${search.mId }</a></td>
 			 <td>${search.cWin }</td>
 			 <td>${search.cDraw }</td>
@@ -86,21 +87,21 @@
 		</c:forEach>
 	</table>
 	
-	<a href="fighterSearch.kf?page=1&searchCategory=${searchCategory}&searchWord=${searchWord}">&lt;&lt;</a> &nbsp;
+	<a href="fighterSearch?page=1&searchCategory=${searchCategory}&searchWord=${searchWord}">&lt;&lt;</a> &nbsp;
 	
 	<c:if test="${point >= 2}">
-		<a href="fighterSearch.kf?page=${back }&searchCategory=${searchCategory}&searchWord=${searchWord}">&lt;</a> &nbsp;
+		<a href="fighterSearch?page=${back }&searchCategory=${searchCategory}&searchWord=${searchWord}">&lt;</a> &nbsp;
 	</c:if>
 	
 	<c:forEach var="i" begin="${min_num }" end="${max_num }">
-		<a href= "fighterSearch.kf?page=${i }&searchCategory=${searchCategory}&searchWord=${searchWord}">${i }</a> &nbsp;
+		<a href= "fighterSearch?page=${i }&searchCategory=${searchCategory}&searchWord=${searchWord}">${i }</a> &nbsp;
 	</c:forEach>
 	
 	<c:if test="${point<= (pageTotal-1)/10}">
-		<a href="fighterSearch.kf?page=${go }&searchCategory=${searchCategory}&searchWord=${searchWord}">&gt;</a> &nbsp;
+		<a href="fighterSearch?page=${go }&searchCategory=${searchCategory}&searchWord=${searchWord}">&gt;</a> &nbsp;
 	</c:if>
 	
-	<a href="freeboardSearch.fdo?page=${pageTotal}&searchCategory=${searchCategory}&searchWord=${searchWord}">&gt;&gt;</a> &nbsp;
+	<a href="fighterSearch?page=${pageTotal}&searchCategory=${searchCategory}&searchWord=${searchWord}">&gt;&gt;</a> &nbsp;
 </div>
 	
 <div id="kscontainer2">

@@ -14,11 +14,11 @@
     
 <script type="text/javascript">
 	var id = "${loginId }";	
-	
+	/*
 	$(function() {		
 		setInterval("messageAlram()", 1000); // 2초에 한번식 실행				
 	});
-
+	
 	function messageAlram(){
 		if (id != "") {			
 			$.ajax({
@@ -51,7 +51,7 @@
 		var box = document.getElementById("messageBox");
 		box.style.visibility='hidden';
 	}
-
+	*/
 </script>
 <style type="text/css">
 	
@@ -127,7 +127,7 @@
 		<c:import url="main/menu.jsp"></c:import>	
 	</header>
 	<div id="container">
-			<c:import url="rankingList.rak"></c:import>
+			<c:import url="/rankingList"></c:import>
 	</div>
 	<footer>
 		<c:import url="main/advertisement.jsp"></c:import>
