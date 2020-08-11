@@ -14,7 +14,7 @@
     
 <script type="text/javascript">
 	var id = "${loginId }";	
-	/*
+	
 	$(function() {		
 		setInterval("messageAlram()", 1000); // 2초에 한번식 실행				
 	});
@@ -22,7 +22,7 @@
 	function messageAlram(){
 		if (id != "") {			
 			$.ajax({
-				url : "message.match",
+				url : "message",
 				type : "POST",
 				dataType : "TEXT", 
 				contentType: "application/x-www-form-urlencoded; charset=UTF-8", 
@@ -51,7 +51,7 @@
 		var box = document.getElementById("messageBox");
 		box.style.visibility='hidden';
 	}
-	*/
+	
 </script>
 <style type="text/css">
 	
