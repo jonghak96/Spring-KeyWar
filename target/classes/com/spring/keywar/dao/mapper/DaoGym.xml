@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.keywar.dao.DaoGym">
+
+	<select id="count_gymList" resultType="int">
+		SELECT COUNT(MSEQNO) FROM KEYWAR.MEMBER WHERE MTYPE='G'
+	</select>
+
+	<select id="gymList" resultType="com.spring.keywar.dto.DtoGym">
+		SELECT mId, mName, gAddress, mSports, gRentalPrice, gNumber FROM keyWar.member AS m, keyWar.gym AS g WHERE m.mSeqno = g.member_mSeqno ORDER BY gRentalNum DESC LIMIT #{0}, 10;
+	</select>
+	
+	<select id="count_gymSearch_mName" resultType="int">
+		SELECT COUNT(MSEQNO) FROM KEYWAR.MEMBER WHERE MTYPE='G' AND MNAME LIKE CONCAT('%',#{0},'%')
+	</select>
+	
+	<select id="count_gymSearch_gAddress" resultType="int">
+		SELECT COUNT(MSEQNO) FROM KEYWAR.MEMBER AS M, KEYWAR.GYM AS G WHERE M.MSEQNO = G.MEMBER_MSEQNO AND MTYPE='G' AND GADDRESS LIKE CONCAT('%',#{0},'%')
+	</select>
+	
+	<select id="count_gymSearch_mSports" resultType="int">
+		SELECT COUNT(MSEQNO) FROM KEYWAR.MEMBER WHERE MTYPE='G' AND MSPORTS = #{0}
+	</select>
+	
+	<select id="gymSearch_mName" resultType="com.spring.keywar.dto.DtoGym">
+		SELECT MID, MNAME, GADDRESS, MSPORTS, GRENTALPRICE, GNUMBER FROM KEYWAR.MEMBER AS M, KEYWAR.GYM AS G WHERE M.MSEQNO = G.MEMBER_MSEQNO AND MNAME LIKE CONCAT('%',#{0},'%') ORDER BY GRENTALNUM DESC LIMIT #{1}, 10
+	</select>
+	
+	<select id="gymSearch_gAddress" resultType="com.spring.keywar.dto.DtoGym">
+		SELECT MID, MNAME, GADDRESS, MSPORTS, GRENTALPRICE, GNUMBER FROM KEYWAR.MEMBER AS M, KEYWAR.GYM AS G WHERE M.MSEQNO = G.MEMBER_MSEQNO AND GADDRESS LIKE CONCAT('%',#{0},'%') ORDER BY GRENTALNUM DESC LIMIT #{1}, 10
+	</select>
+	
+	<select id="gymSearch_mSports" resultType="com.spring.keywar.dto.DtoGym">
+		SELECT MID, MNAME, GADDRESS, MSPORTS, GRENTALPRICE, GNUMBER FROM KEYWAR.MEMBER AS M, KEYWAR.GYM AS G WHERE M.MSEQNO = G.MEMBER_MSEQNO AND MSPORTS = #{0} ORDER BY GRENTALNUM DESC LIMIT #{1}, 10
+	</select>
+	
+	<select id="gymContent" resultType="com.spring.keywar.dto.DtoGym">
+		SELECT GPHOTOPATH, MNAME, MID, GADDRESS, GNUMBER, MSPORTS, GRENTALPRICE, GRENTALNUM, MINTRO FROM KEYWAR.MEMBER AS M, KEYWAR.GYM AS G WHERE M.MSEQNO = G.MEMBER_MSEQNO AND MID = #{0}
+	</select>
+	
+	<select id="gymFile" resultType="com.spring.keywar.dto.DtoGymFile">
+		SELECT GFPHOTOPATH FROM KEYWAR.GYMFILE AS GF, KEYWAR.MEMBER AS M WHERE M.MSEQNO = GF.MEMBER_MSEQNO AND M.MID = #{0}
+	</select>
+
+</mapper>
