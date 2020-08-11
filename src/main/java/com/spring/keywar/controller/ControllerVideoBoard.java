@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.spring.keywar.dao.DaoFreeBoard;
 import com.spring.keywar.dao.DaoMatch;
 import com.spring.keywar.dao.DaoVideoBoard;
 import com.spring.keywar.service.FileUploadService;
@@ -28,7 +29,7 @@ public class ControllerVideoBoard {
 	ServletContext servletContext;
 	
 	@RequestMapping("/getVideoboardSearch")
-	public String freeboardList(HttpServletRequest request, Model model) {
+	public String VideoboardList(HttpServletRequest request, Model model) {
 		
 		// Dao 선언
 		DaoVideoBoard dao = sqlSession.getMapper(DaoVideoBoard.class);
@@ -182,10 +183,85 @@ public class ControllerVideoBoard {
 		
 		// Dao 선언
 		DaoVideoBoard dao = sqlSession.getMapper(DaoVideoBoard.class);
-		request.setAttribute("boardContent", dao.videoboardContent(bSeqno));
+		// 영상게시판 내용 띄우기.
+		model.addAttribute("boardContent", dao.videoboardContent(bSeqno));
+		// 조회수 카운트.
 		dao.viewCount(bSeqno);
+		// 영상게시물 댓글 띄우기.
+		model.addAttribute("commentContentVideo", dao.videoboardCommentContent(bSeqno));
 		
 		return "videoboard/boardContent";
+	}
+	
+	
+	@RequestMapping("/videoBoardLikeCount")
+	public String likeCount(HttpServletRequest request) {
+		
+		// Dao 선언
+		DaoVideoBoard dao = sqlSession.getMapper(DaoVideoBoard.class);
+		dao.likeCount(request.getParameter("bSeqno"));
+		
+		return "redirect:getVideoboardSearch";
+	}
+	
+	
+	@RequestMapping("/videoboardDelete")
+	public String videoboardDelete(HttpServletRequest request) {
+		
+		// Dao 선언
+		DaoVideoBoard dao = sqlSession.getMapper(DaoVideoBoard.class);
+		dao.videoboardDelete(request.getParameter("bSeqno"));
+		
+		return "redirect:getVideoboardSearch";
+	}
+	
+	
+	@RequestMapping("/videoboardUpdate")
+	public String videoboardUpdate(HttpServletRequest request) {
+		
+System.out.println(request.getParameter("bSeqno"));
+System.out.println(request.getParameter("bTitle"));
+System.out.println(request.getParameter("bContent"));
+		
+		// Dao 선언
+		DaoVideoBoard dao = sqlSession.getMapper(DaoVideoBoard.class);
+		dao.videoboardUpdate(request.getParameter("bTitle"), request.getParameter("bContent"), request.getParameter("bSeqno"));
+		
+		return "redirect:getVideoboardSearch";
+	}
+	
+	
+	@RequestMapping("/videoboardCommentWrite")
+	public String videoboardCommentWrite(HttpServletRequest request, Model model) {
+		
+		// Dao 선언
+		DaoVideoBoard dao = sqlSession.getMapper(DaoVideoBoard.class);
+// 지금은 작성자에서 불러옴. 로그인하면 세션값으로 불러와야함.		request.getParameter("mId")
+		dao.videoboardCommentWrite(request.getParameter("cContent"), request.getParameter("bSeqno"), "jong");
+		
+		return "redirect:getVideoboardSearch";
+	}
+	
+	
+	@RequestMapping("/videoboardCommentDelete")
+	public String videoboardCommentDelete(HttpServletRequest request) {
+		
+		// Dao 선언
+		DaoVideoBoard dao = sqlSession.getMapper(DaoVideoBoard.class);
+		dao.videoboardCommentDelete(request.getParameter("cSeqno"));
+		
+		return "redirect:getVideoboardSearch";
+	}
+	
+	
+	@RequestMapping("/videoboardCommentUpdate")
+	public String videoboardCommentUpdate(HttpServletRequest request) {
+		
+		// Dao 선언
+		DaoVideoBoard dao = sqlSession.getMapper(DaoVideoBoard.class);
+		dao.videoboardCommentUpdate(request.getParameter("cContent"), request.getParameter("cSeqno"));
+		
+		return "redirect:getVideoboardSearch";
 	}
 	
 	

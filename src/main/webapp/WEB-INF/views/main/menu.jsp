@@ -6,7 +6,7 @@
 		location.href = "fighterSearch_click";
 	}
 	function boardPageMove() {
-		location.href = "videoBoard";
+		location.href = "getVideoboardSearch";
 	}
 	function gymInfoPageMove() {
 		location.href = "gymPage";
