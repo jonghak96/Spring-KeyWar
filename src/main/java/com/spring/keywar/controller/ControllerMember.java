@@ -1,14 +1,19 @@
 package com.spring.keywar.controller;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.keywar.dao.DaoMember;
+import com.spring.keywar.service.FileUploadService;
 
 
 @Controller
@@ -16,6 +21,12 @@ public class ControllerMember {
 	
 	@Autowired
 	private SqlSession sqlSession;
+	
+	@Autowired
+	FileUploadService fileUploadService;
+	
+	@Autowired
+	ServletContext servletContext;
 	
 	// 선수/ 체육관 회원가입 선택 창
 	@RequestMapping("/signUp_view") 
@@ -33,7 +44,7 @@ public class ControllerMember {
 
 	// 회원가입 정보 입력
 	@RequestMapping("/customerSignUp") 
-	public String cstomerSignUp(HttpServletRequest request, Model model) {
+	public String cstomerSignUp(HttpServletRequest request, Model model, @RequestParam("files") MultipartFile files) {				
 		
 		DaoMember dao = sqlSession.getMapper(DaoMember.class);
 		dao.writeMemberDao(request.getParameter("id"), 
@@ -45,6 +56,14 @@ public class ControllerMember {
 							request.getParameter("intro"), 
 							request.getParameter("sports"), 
 							request.getParameter("type"));
+		
+		// 동적 저장 장소.
+				String uploadPath = request.getSession().getServletContext().getRealPath("/resources/");
+				String url = fileUploadService.restore(files, uploadPath);
+				model.addAttribute("url", url);
+				
+				// 파일 첨부하기. (파일은 일단 절대값 넣음)
+				dao.customerWriteFile("123", url, request.getParameter("id"));
 		
 		dao.writeCustomerDao(request.getParameter("sex"), 
 							request.getParameter("age"), 
@@ -116,7 +135,9 @@ public class ControllerMember {
 		if (loginId == null){
 			return "login/loginFalse";
 		}else {
-			model.addAttribute("loginId", loginId);
+			HttpSession session = request.getSession();     // 세션 객체만들기
+
+			session.setAttribute("loginId", loginId);
 			return "mainScreen";
 		}
 	}
@@ -134,11 +155,11 @@ public class ControllerMember {
 		
 		DaoMember dao = sqlSession.getMapper(DaoMember.class);
 		String findId = dao.findId(request.getParameter("mName"), request.getParameter("mTelno"), request.getParameter("mEmail"));
-		model.addAttribute("findId", findId);
+		model.addAttribute("mId", findId);
 		
-		if (findId == null) {
+		if (findId == null) 
 			return "login/loginFalse";
-		}else
+		
 		return "login/loginIdFind2";
 	}
 		
@@ -155,7 +176,7 @@ public class ControllerMember {
 		
 		DaoMember dao = sqlSession.getMapper(DaoMember.class);
 		String findPw = dao.findPw(request.getParameter("mId"), request.getParameter("mName"), request.getParameter("mTelno"), request.getParameter("mEmail"));
-		model.addAttribute("findPw", findPw);
+		model.addAttribute("mPw", findPw);
 		
 		if (findPw == null) {
 			return "login/loginFalse";

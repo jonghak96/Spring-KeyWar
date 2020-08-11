@@ -10,7 +10,7 @@
 		margin-bottom: 3px;
 	}
 </style>
-    
+                   
 	<h1>선수상세정보</h1>
 	
 	<img src="../member/${content.cPhotoPath }" alt="photo" width="200" height="200">
@@ -35,7 +35,7 @@
 	 <br>
 				
 	<c:forEach items="${GYMLIST }" var="GYMLIST">
-	<form action="matching.match" method="post">
+	<form action="matching" method="post">
 	<div id="formMatch">
 	 	<input type="hidden" name="gymSeqno" value="${GYMLIST.mSeqno }">
 		<input type="hidden" name="rivalId" value="${content.mId }">

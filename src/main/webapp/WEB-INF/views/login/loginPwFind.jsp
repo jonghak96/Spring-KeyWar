@@ -8,7 +8,7 @@
 </head>
 <body>
 
-	<form action="findPw.lo" method="post">	
+	<form action="findPw" method="post">	
 		아이디 : <input type="text" name="mId"> 				<br>
 		이름 : <input type="text" name="mName"> 				<br>
 		전화번호 : <input type="text" name="mTelno">			<br>

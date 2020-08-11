@@ -12,7 +12,9 @@ public class DtoMatch {
 	int mWinSeqno;
 	int mLoseSeqno;
 	
-	
+	public DtoMatch() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public DtoMatch(int matchSeqno, String mSuccess) {
 		super();

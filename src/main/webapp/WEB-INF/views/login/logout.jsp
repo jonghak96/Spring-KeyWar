@@ -6,7 +6,7 @@
 	session.removeAttribute("loginId");
 	session.invalidate();
 	
-	response.sendRedirect("../mainScreen.jsp");
+	response.sendRedirect("main");
 %>
     
     
