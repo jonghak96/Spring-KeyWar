@@ -3,7 +3,7 @@
     
 <script type="text/javascript">
 	function fighterPageMove() {
-		location.href = "http://localhost:8080/KeyWar/fighter/fighterPage.jsp";
+		location.href = "fighterSearch_click";
 	}
 	function boardPageMove() {
 		location.href = "videoBoard";
