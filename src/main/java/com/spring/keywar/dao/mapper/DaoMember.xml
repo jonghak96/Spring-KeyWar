@@ -36,4 +36,8 @@
 		INSERT INTO KEYWAR.READY (RSEX, RAGE1, RAGE2, RAREA, RWCLASS1, RWCLASS2, MEMBER_MSEQNO) VALUES (#{0}, #{1}, #{2}, #{3}, #{4}, #{5}, (SELECT M.MSEQNO FROM KEYWAR.MEMBER AS M WHERE M.MID = #{6}));
 	</insert>
 	
+	<insert id="customerWriteFile">
+		INSERT INTO CUSTOMER (cPhoto, cPhotoPath) VALUES (#{0}, #{1} FROM FREEBOARD) where cSeqno = #{2})
+	</insert>
+	
 </mapper>
