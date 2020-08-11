@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.keywar.dao.DaoMatch">
+
+	<select id="matchInsert" resultType="int">
+		select matchInsert(#{param1}, #{param2}, #{param3}, now());
+	</select>
+
+	<update id="matchIngChange">
+		UPDATE keyWar.match SET mSuccess = #{param2} WHERE matchSeqno = #{param1}
+	</update>
+
+	<delete id="matchIngCancle">
+		DELETE FROM keyWar.match WHERE matchSeqno = #{param1}
+	</delete>
+	
+	<!-- 매칭 왼쪽 구하기 -->
+	<select id="matchListMemberSeqno" resultType="int">
+		select member_mSeqno from keyWar.match 
+		where mSuccess = #{param1} and 
+		(member_mSeqno = (select mSeqno from keyWar.member where mId = #{param2}) or 
+		rival_mSeqno = (select mSeqno from keyWar.member where mId = #{param2}))
+	</select>
+	
+	<select id="matchListMember" resultType="com.spring.keywar.dto.DtoMemberCustomer">
+		select m.mId, m.mArea, m.mSports, c.cAge, c.cHeight, c.cWeight, c.cwClass, c.cWin, c.cLose, c.cDraw
+		from keyWar.member as m, customer as c 
+		where m.mSeqno = #{param1} and c.member_mSeqno = #{param2}
+	</select>	
+	
+	<!-- 매칭 오른쪽 구하기 -->
+	<select id="matchListRivalSeqno" resultType="int">
+		select rival_mSeqno from keyWar.match 
+		where mSuccess = #{param1} and 
+		(member_mSeqno = (select mSeqno from keyWar.member where mId = #{param2}) or 
+		rival_mSeqno = (select mSeqno from keyWar.member where mId = #{param2}))
+	</select>
+	
+	<!-- 매칭 체육관 구하기 -->
+	<select id="matchListGymSeqno" resultType="int">
+		select gym_mSeqno from keyWar.match 
+		where mSuccess = #{param1} and 
+		(member_mSeqno = (select mSeqno from keyWar.member where mId = #{param2}) or 
+		rival_mSeqno = (select mSeqno from keyWar.member where mId = #{param2}))
+	</select>
+	
+	<select id="matchListGym" resultType="com.spring.keywar.dto.DtoMemberGym">
+		select m.mName, m.mTelno, m.mSports, g.gNumber, gAddress, gRentalPrice 
+		from keyWar.member as m, gym as g 
+		where m.mSeqno = #{param1} and g.member_mSeqno = #{param2}
+	</select>
+	
+	<!-- 매칭 리스트 번호 구하기 -->
+	<select id="matchListSeqno" resultType="com.spring.keywar.dto.DtoMatch">
+		select matchSeqno, mSuccess from keyWar.match 
+		where mSuccess = #{param1} and 
+		member_mSeqno = (select mSeqno from keyWar.member where mId = #{param2}) or 
+		rival_mSeqno = (select mSeqno from keyWar.member where mId = #{param2})
+	</select>
+	
+</mapper>

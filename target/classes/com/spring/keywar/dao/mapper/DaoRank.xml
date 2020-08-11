@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.keywar.dao.DaoRank">
+
+<select id="rankingList" resultType="com.spring.keywar.dto.DtoMember">
+		select m.mId, c.cWin, c.cLose, c.cDraw, c.cAge, c.cHeight, c.cWeight, m.mSports, cPhotoPath from keyWar.member as m, customer as c where m.mSeqno = c.member_mSeqno order by c.cWin desc limit 3
+	</select>
+
+</mapper>
