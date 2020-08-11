@@ -70,7 +70,7 @@
 	<h1>영상등록</h1>
 
 
-	<form action="/KeyWar/board/boardWrite.do" method="post" enctype="Multipart/form-data" id="sumNailForm">
+	<form action="../writeVideoboard" method="post" enctype="Multipart/form-data" id="sumNailForm">
 	
 	<table border="1">
 		<tr>

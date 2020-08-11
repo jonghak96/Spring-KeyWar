@@ -13,7 +13,7 @@
 <body>
 	<h1>자유게시판</h1>
 
-	<form action="../freeboard/freeboardSearch" method="post">
+	<form action="getFreeboardSearch" method="get">
 		<select name="searchCategory">
 			<option value="fbTitle">제목</option>
 			<option value="mId">작성자</option>
@@ -48,27 +48,27 @@
 	
 	
 	
-	<a href="freeboardSearch?page=1&searchCategory=${searchCategory}&searchWord=${searchWord}">&lt;&lt;</a> &nbsp;
+	<a href="getFreeboardSearch?page=1&searchCategory=${searchCategory}&searchWord=${searchWord}">&lt;&lt;</a> &nbsp;
 	
 	<c:if test="${point >= 2}">
-		<a href="freeboardSearch?page=${back }&searchCategory=${searchCategory}&searchWord=${searchWord}">&lt;</a> &nbsp;
+		<a href="getFreeboardSearch?page=${back }&searchCategory=${searchCategory}&searchWord=${searchWord}">&lt;</a> &nbsp;
 	</c:if>
 	
 	<c:forEach var="i" begin="${min_num }" end="${max_num }">
-		<a href= "freeboardSearch?page=${i }&searchCategory=${searchCategory}&searchWord=${searchWord}">${i }</a> &nbsp;
+		<a href= "getFreeboardSearch?page=${i }&searchCategory=${searchCategory}&searchWord=${searchWord}">${i }</a> &nbsp;
 	</c:forEach>
 	
 	<c:if test="${point<= (pageTotal-1)/10}">
-		<a href="freeboardSearch?page=${go }&searchCategory=${searchCategory}&searchWord=${searchWord}">&gt;</a> &nbsp;
+		<a href="getFreeboardSearch?page=${go }&searchCategory=${searchCategory}&searchWord=${searchWord}">&gt;</a> &nbsp;
 	</c:if>
 	
-	<a href="freeboardSearch?page=${pageTotal}&searchCategory=${searchCategory}&searchWord=${searchWord}">&gt;&gt;</a> &nbsp;
+	<a href="getFreeboardSearch?page=${pageTotal}&searchCategory=${searchCategory}&searchWord=${searchWord}">&gt;&gt;</a> &nbsp;
 	
 	
 	<br>
 	<br>
 	
-	<form action="/KeyWar/freeboard/freeboardWrite" method="post">
+	<form action="freeboard/freeboardWrite" method="post">
 		<input type="submit" value="글작성">
 	</form>
 
@@ -79,7 +79,7 @@
 	
 <script type="text/javascript">
 	function mainPageMove() {
-		location.href = "../mainScreen.jsp";
+		location.href = "../keywar/main";
 	}
 </script>
 

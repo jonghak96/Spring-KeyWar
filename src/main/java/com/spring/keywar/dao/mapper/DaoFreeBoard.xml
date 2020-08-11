@@ -38,7 +38,7 @@
 	</insert>
 	
 	<select id="freeboardContent" resultType="com.spring.keywar.dto.DtoFreeBoard">
-		SELECT MID, FBDATE, FBLIKE, FBVIEW, FBTITLE, FBCONTENT FROM FREEBOARD AS FB, KEYWAR.MEMBER AS M, FREEBOARDFILE AS FF WHERE FB.MEMBER_MSEQNO = M.MSEQNO AND FB.FBSEQNO = FF.FREEBOARD_FBSEQNO AND FBSEQNO = #{0};
+		SELECT FBSEQNO, MID, FBDATE, FBLIKE, FBVIEW, FBTITLE, FBCONTENT FROM FREEBOARD AS FB, KEYWAR.MEMBER AS M, FREEBOARDFILE AS FF WHERE FB.MEMBER_MSEQNO = M.MSEQNO AND FB.FBSEQNO = FF.FREEBOARD_FBSEQNO AND FBSEQNO = #{0};
 	</select>
 	
 	<update id="viewCount">
@@ -48,5 +48,33 @@
 	<select id="freeboardContentFile" resultType="com.spring.keywar.dto.DtoFreeBoard">
 		SELECT FFPHOTOPATH FROM FREEBOARD AS FB, FREEBOARDFILE AS FF WHERE FB.FBSEQNO = FF.FREEBOARD_FBSEQNO AND FBSEQNO = #{0}
 	</select>
+	
+	<delete id="freeboardDelete">
+		DELETE FROM FREEBOARD WHERE FBSEQNO = #{0}
+	</delete>
+	
+	<update id="freeboardUpdate">
+		UPDATE FREEBOARD SET FBTITLE = #{0}, FBCONTENT = #{1} WHERE FBSEQNO= #{2};
+	</update>
+	
+	<update id="likeCount">
+		UPDATE FREEBOARD SET FBLIKE=FBLIKE+1 WHERE FBSEQNO= #{0}
+	</update>
+	
+	<insert id="freeboardCommentWrite">
+		INSERT INTO FREEBOARDCOMMENT (FCCONTENT, FCDATE, FREEBOARD_FBSEQNO, MEMBER_MSEQNO) VALUES (#{0}, NOW(), #{1}, (SELECT MSEQNO FROM KEYWAR.MEMBER WHERE MID = #{2}))
+	</insert>
+	
+	<select id="freeboardCommentContent" resultType="com.spring.keywar.dto.DtoFreeBoardComment">
+		SELECT FCSEQNO, MID AS FCWRITER, FCCONTENT, FCDATE FROM FREEBOARDCOMMENT AS FC, KEYWAR.MEMBER AS M, FREEBOARD AS FB WHERE M.MSEQNO = FC.MEMBER_MSEQNO AND FB.FBSEQNO = FC.FREEBOARD_FBSEQNO AND FREEBOARD_FBSEQNO = #{0}
+	</select>
+	
+	<delete id="freeboardCommentDelete">
+		DELETE FROM FREEBOARDCOMMENT WHERE FCSEQNO = #{0}
+	</delete>
+	
+	<update id="freeboardCommentUpdate">
+		UPDATE FREEBOARDCOMMENT SET FCCONTENT = #{0} WHERE FCSEQNO= #{1}
+	</update>
 
 </mapper>
