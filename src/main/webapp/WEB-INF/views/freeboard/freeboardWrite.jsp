@@ -10,7 +10,7 @@
 	<h1>글작성</h1>
 	
 
-	<form action="/KeyWar/freeboard/freeboardWrite.do" method="post" enctype="Multipart/form-data" onsubmit="return formSubmit()">
+	<form action="../writeFreeboard" method="post" enctype="Multipart/form-data" onsubmit="return formSubmit()">
 	<table border="1">
 		<tr>
 			<td>작성자:</td>
@@ -34,7 +34,7 @@
 
 	
 	
-	<a href = "/KeyWar/freeboard/freeboardSearch.do">취소</a></td>
+	<a href = "/KeyWar/freeboard/freeboardSearch">취소</a></td>
 	
 </body>
 </html>

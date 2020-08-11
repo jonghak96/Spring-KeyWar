@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.keywar.dao.DaoVideoBoard">
+
+	<select id="count_videoboardList" resultType="int">
+		SELECT COUNT(BSEQNO) FROM BOARD
+	</select>
+	
+	<select id="videoboardList" resultType="com.spring.keywar.dto.DtoVideoBoard">
+		SELECT FPHOTOPATH, BSEQNO, MID, BTITLE, BDATE, BVIEW FROM BOARD AS B, KEYWAR.MEMBER AS M, BOARDFILE AS BF WHERE B.MEMBER_MSEQNO = M.MSEQNO AND B.BSEQNO = BF.BOARD_BSEQNO ORDER BY BVIEW DESC, BDATE DESC LIMIT #{0}, 5
+	</select>
+	
+	<select id="count_videoboardSearch_bTitle" resultType="int">
+		SELECT COUNT(BSEQNO) FROM BOARD WHERE BTITLE LIKE CONCAT('%',#{0},'%')
+	</select>
+	
+	<select id="count_videoboardSearch_mId" resultType="int">
+		SELECT COUNT(BSEQNO) FROM BOARD AS B, KEYWAR.MEMBER AS M WHERE B.MEMBER_MSEQNO = M.MSEQNO AND M.MID = #{0}
+	</select>
+	
+	<select id="videoboardSearch_bTitle" resultType="com.spring.keywar.dto.DtoVideoBoard">
+		SELECT FPHOTOPATH, BSEQNO, MID, BTITLE, BDATE, BVIEW FROM BOARD AS B, KEYWAR.MEMBER AS M, BOARDFILE AS F WHERE B.MEMBER_MSEQNO = M.MSEQNO AND B.BSEQNO = F.BOARD_BSEQNO AND BTITLE LIKE CONCAT('%',#{0},'%') ORDER BY BVIEW DESC, BDATE DESC LIMIT #{1}, 5;
+	</select>
+	
+	<select id="videoboardSearch_mId" resultType="com.spring.keywar.dto.DtoVideoBoard">
+		SELECT FPHOTOPATH, BSEQNO, MID, BTITLE, BDATE, BVIEW FROM BOARD AS B, KEYWAR.MEMBER AS M, BOARDFILE AS F WHERE B.MEMBER_MSEQNO = M.MSEQNO AND B.BSEQNO = F.BOARD_BSEQNO AND M.MID = #{0} ORDER BY BVIEW DESC, BDATE DESC LIMIT #{1}, 5;
+	</select>
+	
+	<select id="gymIdCheck" resultType="int">
+		SELECT IF ((SELECT MTYPE FROM KEYWAR.MEMBER WHERE MID = #{0})='G', 1, 0);
+	</select>
+	
+	<insert id="videoboardWrite">
+		INSERT INTO BOARD (BTITLE, BCONTENT, BDATE, MEMBER_MSEQNO) VALUES (#{0}, #{1}, NOW(), (SELECT MSEQNO FROM KEYWAR.MEMBER WHERE MID = #{2}))
+	</insert>
+	
+	<insert id="videoboardWriteFile">
+		INSERT INTO BOARDFILE (FPHOTOPATH, FVIDEO, FVIDEOPATH, BOARD_BSEQNO) VALUES (#{0}, #{1}, #{2}, (SELECT MAX(BSEQNO) FROM BOARD AS B, KEYWAR.MEMBER AS M WHERE B.MEMBER_MSEQNO = M.MSEQNO AND MID = #{3}))
+	</insert>
+	
+	<select id="videoboardContent" resultType="com.spring.keywar.dto.DtoVideoBoard">
+		SELECT BSEQNO, FVIDEOPATH, MID, BDATE, BLIKE, BVIEW, BTITLE, BCONTENT FROM BOARD AS B, KEYWAR.MEMBER AS M, BOARDFILE AS F WHERE B.MEMBER_MSEQNO = M.MSEQNO AND B.BSEQNO = F.BOARD_BSEQNO AND BSEQNO = #{0}
+	</select>
+	
+	<update id="viewCount">
+		UPDATE BOARD SET BVIEW=BVIEW+1 WHERE BSEQNO = #{0}
+	</update>
+
+	
+
+
+
+</mapper>

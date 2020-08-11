@@ -5,6 +5,10 @@
 
 <mapper namespace="com.spring.keywar.dao.DaoMatch">
 
+	<update id="matchCompleted">
+		UPDATE KEYWAR.MATCH SET MSUCCESS = MSUCCESS+1 WHERE MATCHSEQNO = (SELECT KEYWAR.GETMATCHSEQNO(#{0}, #{1}, #{2}));
+	</update>
+
 	<select id="matchInsert" resultType="int">
 		select matchInsert(#{param1}, #{param2}, #{param3}, now());
 	</select>

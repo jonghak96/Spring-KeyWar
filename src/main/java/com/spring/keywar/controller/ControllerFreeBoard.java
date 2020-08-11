@@ -1,8 +1,8 @@
 package com.spring.keywar.controller;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.keywar.dao.DaoFreeBoard;
 import com.spring.keywar.service.FileUploadService;
+
 
 @Controller
 public class ControllerFreeBoard {
@@ -52,10 +53,10 @@ public class ControllerFreeBoard {
 		}
 		
 		if(request.getParameter("searchCategory") == null || request.getParameter("searchCategory").equals("") ||
-				request.getParameter("searchWord") == null || request.getParameter("searchWord").equals("")) {
+			request.getParameter("searchWord") == null || request.getParameter("searchWord").equals("")) {
 		
-			request.setAttribute("searchCategory", "");
-			request.setAttribute("searchWord", "");
+			model.addAttribute("searchCategory", "");
+			model.addAttribute("searchWord", "");
 			
 			rowTotal = dao.count_freeboardList();
 			pageTotal = (double)rowTotal / 5;
@@ -127,11 +128,12 @@ public class ControllerFreeBoard {
 	}
 	
 	@RequestMapping("/freeboard/freeboardWrite")
-	public String freeboardWrite() {
+	public String writeFreeboard() {
 		return "freeboard/freeboardWrite";
 	}
 	
-	@RequestMapping("/freeboard/writeFreeboard")
+	
+	@RequestMapping("/writeFreeboard")
 	public String upload(
 			HttpServletRequest request,
 			Model model,
@@ -142,6 +144,7 @@ public class ControllerFreeBoard {
 		
 		// 동적 저장 장소.
 		String uploadPath = request.getSession().getServletContext().getRealPath("/resources/");
+System.out.println(uploadPath);
 		String url = fileUploadService.restore(files, uploadPath);
 		model.addAttribute("url", url);
 		
@@ -171,13 +174,80 @@ public class ControllerFreeBoard {
 		dao.viewCount(fbSeqno);
 		// 첨부파일 띄워주기.
 		model.addAttribute("file", dao.freeboardContentFile(fbSeqno));
+		// 게시물 댓글 띄워주기.
+		model.addAttribute("commentContent", dao.freeboardCommentContent(fbSeqno));
+		
 		
 		return "freeboard/freeboardContent";
 	}
 	
 	
-
+	@RequestMapping("/freeboardDelete")
+	public String freeboardDelete(HttpServletRequest request) {
+		
+		// Dao 선언
+		DaoFreeBoard dao = sqlSession.getMapper(DaoFreeBoard.class);
+		dao.freeboardDelete(request.getParameter("fbSeqno"));
+		
+		return "redirect:getFreeboardSearch";
+	}
 	
+	@RequestMapping("/freeboardUpdate")
+	public String freeboardUpdate(HttpServletRequest request) {
+		
+System.out.println(request.getParameter("fbSeqno"));
+System.out.println(request.getParameter("fbTitle"));
+System.out.println(request.getParameter("fbContent"));
+		
+		// Dao 선언
+		DaoFreeBoard dao = sqlSession.getMapper(DaoFreeBoard.class);
+		dao.freeboardUpdate(request.getParameter("fbTitle"), request.getParameter("fbContent"), request.getParameter("fbSeqno"));
+		
+		return "redirect:getFreeboardSearch";
+	}
+	
+	
+	@RequestMapping("/likeCount")
+	public String likeCount(HttpServletRequest request, Model model) {
+		
+		// Dao 선언
+		DaoFreeBoard dao = sqlSession.getMapper(DaoFreeBoard.class);
+		dao.likeCount(request.getParameter("fbSeqno"));
+		
+		return "redirect:getFreeboardSearch";
+	}
+	
+	
+	@RequestMapping("/freeboardCommentWrite")
+	public String freeboardCommentWrite(HttpServletRequest request, Model model) {
+		
+		// Dao 선언
+		DaoFreeBoard dao = sqlSession.getMapper(DaoFreeBoard.class);
+// 지금은 작성자에서 불러옴. 로그인하면 세션값으로 불러와야함.		request.getParameter("mId")
+		dao.freeboardCommentWrite(request.getParameter("fcContent"), request.getParameter("fbSeqno"), "jong");
+		
+		return "redirect:getFreeboardSearch";
+	}
+	
+	@RequestMapping("/freeboardCommentDelete")
+	public String freeboardCommentDelete(HttpServletRequest request) {
+		
+		// Dao 선언
+		DaoFreeBoard dao = sqlSession.getMapper(DaoFreeBoard.class);
+		dao.freeboardCommentDelete(request.getParameter("fcSeqno"));
+		
+		return "redirect:getFreeboardSearch";
+	}
+	
+	@RequestMapping("/freeboardCommentUpdate")
+	public String freeboardCommentUpdate(HttpServletRequest request) {
+		
+		// Dao 선언
+		DaoFreeBoard dao = sqlSession.getMapper(DaoFreeBoard.class);
+		dao.freeboardCommentUpdate(request.getParameter("fcContent"), request.getParameter("fcSeqno"));
+		
+		return "redirect:getFreeboardSearch";
+	}
 	
 	
 }//----
