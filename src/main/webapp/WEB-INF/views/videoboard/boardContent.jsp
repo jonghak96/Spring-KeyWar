@@ -15,7 +15,7 @@
 	<form action="/KeyWar/board/boardUpdate.do" method="post">
 		<table border="1">
 			<tr>
-				<td colspan="2"><video src="../board/${boardContent.fVideoPath }" width="500" height="300" controls>영상파일</video></td>
+				<td colspan="2"><video src="/keywar/resources/20208115624179.mp4" width="500" height="300" controls>영상파일</video></td>
 			</tr>
 			<tr>
 				<td>영상번호</td>

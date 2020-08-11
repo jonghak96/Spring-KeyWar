@@ -47,7 +47,7 @@
 <body>
 	<h1>영상게시판</h1>
 
-	<form action="/KeyWar/board/boardSearch.do" method="post">
+	<form action="getVideoboardSearch" method="get">
 		<select name="searchCategory">
 			<option value="bTitle">제목</option>
 			<option value="mId">작성자</option>
@@ -64,7 +64,7 @@
 			<div class="videoContainer">
 		</c:if>
 		<div class="videobox">
-			<a href = "boardContent.do?bSeqno=${search.bSeqno }"><img src="../board/${search.fPhotoPath }" alt="photo" width="200" height="150"></a> <br>
+			<a href = "videoboard/boardContent?bSeqno=${search.bSeqno }"><img src="../board/${search.fPhotoPath }" alt="photo" width="200" height="150"></a> <br>
 			영상번호 : ${search.bSeqno } <br>
 			작성자 : ${search.mId } <br>
 			제목 : ${search.bTitle } <br>
@@ -96,7 +96,7 @@
 	
 	
 	<c:if test="${IDCHECK == 1 }">
-	<form action="/KeyWar/board/boardWrite.jsp" method="post">
+	<form action="videoboard/boardWrite" method="post">
 		<input type="submit" value="영상등록">
 	</form>
 	</c:if>
