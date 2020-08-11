@@ -9,7 +9,7 @@
 	</insert>
 	
 	<insert id="writeCustomerDao">
-		INSERT INTO KEYWAR.CUSTOMER (CSEX, CAGE, CHEIGHT, CWEIGHT, CWCLASS, MEMBER_MSEQNO) VALUES(#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, (SELECT M.MSEQNO FROM KEYWAR.MEMBER AS M WHERE M.MID = #{param6}))
+		INSERT INTO KEYWAR.CUSTOMER (CSEX, CAGE, CPHOTO, CPHOTOPATH, CHEIGHT, CWEIGHT, CWCLASS, MEMBER_MSEQNO) VALUES(#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7}, (SELECT M.MSEQNO FROM KEYWAR.MEMBER AS M WHERE M.MID = #{param8}))
 	</insert>
 	
 	<insert id="writeTimeTableDao">
@@ -35,9 +35,6 @@
 	<insert id="writeReadyDao">
 		INSERT INTO KEYWAR.READY (RSEX, RAGE1, RAGE2, RAREA, RWCLASS1, RWCLASS2, MEMBER_MSEQNO) VALUES (#{0}, #{1}, #{2}, #{3}, #{4}, #{5}, (SELECT M.MSEQNO FROM KEYWAR.MEMBER AS M WHERE M.MID = #{6}));
 	</insert>
-	
-	<insert id="customerWriteFile">
-		INSERT INTO CUSTOMER (cPhoto, cPhotoPath) VALUES (#{0}, #{1} FROM FREEBOARD) where cSeqno = #{2})
-	</insert>
+
 	
 </mapper>

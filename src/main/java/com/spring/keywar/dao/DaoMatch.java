@@ -24,4 +24,11 @@ public interface DaoMatch {
 	public DtoMemberGym matchListGym(int mSeqno, int cSeqno);
 	
 	public ArrayList<DtoMatch> matchListSeqno(String mType, String mId);
+	
+	// 매칭 메시지 띄우기
+	public int matchIng(String mId);
+	public DtoMemberCustomer matchMemberInfo(String myId);
+	public DtoMemberCustomer matchRivalInfo(String Id);
+	public DtoMemberGym matchGymInfo(String myId);
+	public void matched(String myId);
 }

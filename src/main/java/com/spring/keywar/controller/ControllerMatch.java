@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,7 +115,37 @@ public class ControllerMatch {
 		return "match/matchingList";
 	}
 	
-	
+	@RequestMapping("/message")
+	public String message(HttpServletRequest request, HttpServletResponse respones, Model model) {
+		// Dao 선언
+		DaoMatch dao = sqlSession.getMapper(DaoMatch.class);
+
+		String myId = request.getParameter("myId");
+		String match = "false";
+		
+		DtoMemberCustomer member = null;
+		DtoMemberCustomer rival = null;
+		DtoMemberGym gym = null;
+		
+		if (dao.matchIng(myId) != 0) {
+			member = dao.matchMemberInfo(myId);
+			rival = dao.matchRivalInfo(myId);
+			gym = dao.matchGymInfo(myId);
+						
+			model.addAttribute("MEMBER", member);
+			model.addAttribute("RIVAL", rival);
+			model.addAttribute("GYM", gym);
+			
+			dao.matched(myId);
+			match = "true";		
+		}
+		
+		if (match.equals("false")) {
+			return "match/matchListEnd";
+		}
+		
+		return "match/matchMessage";
+	}
 	
 	
 	

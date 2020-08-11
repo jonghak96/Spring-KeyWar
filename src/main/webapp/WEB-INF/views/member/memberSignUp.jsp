@@ -197,7 +197,7 @@
 
 </head>
 <body>
-	<form action="customerSignUp" method="get" enctype="Multipart/form-data" onsubmit="return formSubmit()">
+	<form action="customerSignUp" method="post" enctype="multipart/form-data" onsubmit="return formSubmit()">
 		<h6 id="c1">*필수 입력</h6>
 		*아이디 : <input type="text" name="id" id="id" maxlength="17"><button type="button" onclick="idOverlapCheck()">아이디 중복확인</button> <span id="idCheck"></span>			<br>
 		*비밀번호 : <input type="password" name="pw" id="pw" maxlength="17">		<br>
@@ -267,7 +267,7 @@
 				</select> 
 				<input type="text" name="telno2" id="telno2" size="4" maxlength="4"> - 
 				<input type="text" name="telno3" id="telno3" size="4" maxlength="4"> 	<br>
-		*프로필 사진 : <input type="file" name="profil" accept="image/gif, image/jpeg, image/png" />		<br>
+		*프로필 사진 : <input multiple="multiple" type="file" name="files" accept="image/gif, image/jpeg, image/png" />		<br>
 		*키 : <input type="text" name="height" id="height" maxlength="6"> 			<br>
 		*몸무게 : <input type="text" name="weight" id="weight" maxlength="6">			<br>
 		*체급 계산 : <span id="wClass">현재값</span><input type="hidden" value="" name="wClass" id="IwClass"> <button type="button" onclick="wClassCalc()">체급 계산</button> <br>
