@@ -37,7 +37,9 @@ public class DtoGym {
 		// TODO Auto-generated constructor stub
 	}
 
-	
+	public DtoGym(int gSeqno) {
+		this.gSeqno = gSeqno;
+	}	
 	
 	// list
 	public DtoGym(String mId, String mName, String gAddress, String mSports, int gRentalPrice, String gNumber) {
