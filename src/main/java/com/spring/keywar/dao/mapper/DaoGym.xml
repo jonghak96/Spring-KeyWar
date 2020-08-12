@@ -44,5 +44,7 @@
 	<select id="gymFile" resultType="com.spring.keywar.dto.DtoGymFile">
 		SELECT GFPHOTOPATH FROM KEYWAR.GYMFILE AS GF, KEYWAR.MEMBER AS M WHERE M.MSEQNO = GF.MEMBER_MSEQNO AND M.MID = #{0}
 	</select>
+	
+
 
 </mapper>

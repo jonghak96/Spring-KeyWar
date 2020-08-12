@@ -15,7 +15,7 @@
 	
 	<h1>체육관 상세정보</h1>
 
-	 프로필사진 &emsp; <img src="../gym/${content.gPhotoPath }" alt="photo" width="200" height="200">
+	 프로필사진 &emsp; <img src="/keywar/resources/${content.gPhotoPath }" alt="photo" width="200" height="200">
 	 <br>
 	 체육관명 &emsp; ${content.mName }
 	 <br>
@@ -36,7 +36,7 @@
 	 
 	
  	<c:forEach items="${gymphoto}" var="gymphoto" varStatus="vs">
-	<img src="../gym/${gymphoto.gfPhotoPath }" alt="gymphoto${vs.count }" width="200" height="200">
+	<img src="/keywar/resources/${gymphoto.gfPhotoPath }" alt="gymphoto${vs.count }" width="200" height="200">
 	<br>
 	</c:forEach>
 	
