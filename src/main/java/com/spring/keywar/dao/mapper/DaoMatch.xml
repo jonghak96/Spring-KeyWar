@@ -65,4 +65,37 @@
 		rival_mSeqno = (select mSeqno from keyWar.member where mId = #{param2})
 	</select>
 	
+	<!-- 매칭 메시지 띄우기 -->
+	<select id="matchIng" resultType="int">
+		select count(mSuccess) from keyWar.match 
+		where rival_mSeqno = (select mSeqno from keyWar.member where mId = #{param1}) and mSuccess = '0'
+	</select>
+	
+	<!-- 자기 자신 -->
+	<select id="matchMemberInfo" resultType="com.spring.keywar.dto.DtoMemberCustomer">
+		select m.mId, m.mArea, m.mSports, c.cAge, c.cHeight, c.cWeight, c.cwClass, c.cWin, c.cLose, c.cDraw 
+		from keyWar.member as m, customer as c 
+		where m.mSeqno = (select member_mSeqno from keyWar.match where member_mSeqno = (select mSeqno from keyWar.member where mId = #{param1}) limit 1) 
+		and c.member_mSeqno = (select member_mSeqno from keyWar.match where member_mSeqno = (select mSeqno from keyWar.member where mId = #{param1}) limit 1)
+	</select>
+	
+	<!-- 상대방 -->
+	<select id="matchRivalInfo" resultType="com.spring.keywar.dto.DtoMemberCustomer">
+		select m.mId, m.mArea, m.mSports, c.cAge, c.cHeight, c.cWeight, c.cwClass, c.cWin, c.cLose, c.cDraw 
+		from keyWar.member as m, customer as c 
+		where m.mSeqno = (select rival_mSeqno from keyWar.match where member_mSeqno = (select mSeqno from keyWar.member where mId = #{param1}) limit 1) 
+		and c.member_mSeqno = (select rival_mSeqno from keyWar.match where member_mSeqno = (select mSeqno from keyWar.member where mId = #{param1}) limit 1)	
+	</select>
+	
+	<select id="matchGymInfo" resultType="com.spring.keywar.dto.DtoMemberGym">
+		select m.mName, m.mTelno, m.mSports, g.gNumber, gAddress, gRentalPrice 
+		from keyWar.member as m, gym as g 
+		where m.mSeqno = (select gym_mSeqno from keyWar.match as k, keyWar.member as m where m.mId = #{param1} limit 1)
+		and g.member_mSeqno = (select gym_mSeqno from keyWar.match as k, keyWar.member as m where m.mId = #{param1} limit 1)
+	</select>
+	
+	<update id="matched">
+		UPDATE keyWar.match as mat, keyWar.member as mem SET mat.mSuccess = 1 WHERE mem.mId = #{param1} and mat.mSuccess = '0'
+	</update>
+	
 </mapper>
