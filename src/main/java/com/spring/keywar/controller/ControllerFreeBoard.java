@@ -3,6 +3,7 @@ package com.spring.keywar.controller;
 import javax.servlet.ServletContext;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,12 @@ public class ControllerFreeBoard {
 	
 	@RequestMapping("/getFreeboardSearch")
 	public String freeboardList(HttpServletRequest request, Model model) {
+		
+		HttpSession session = request.getSession();     // 세션 객체만들기
+
+		String loginId = session.getAttribute("loginId").toString();
+		
+		System.out.println("loginId = " + loginId);
 		
 		// Dao 선언
 		DaoFreeBoard dao = sqlSession.getMapper(DaoFreeBoard.class);
@@ -142,21 +149,25 @@ public class ControllerFreeBoard {
 			@RequestParam("fbContent") String fbContent,
 			@RequestParam("files") MultipartFile files) {
 		
+		System.out.println("여기까지 성공.");
+		
 		// 동적 저장 장소.
 		String uploadPath = request.getSession().getServletContext().getRealPath("/resources/");
-System.out.println(uploadPath);
-		String url = fileUploadService.restore(files, uploadPath);
-		model.addAttribute("url", url);
+		System.out.println(uploadPath);
 		
 		// Dao 선언
 		DaoFreeBoard dao = sqlSession.getMapper(DaoFreeBoard.class);
-		
 		// 글 작성하기.
 		dao.freeboardWrite(fbTitle, fbContent, mId);
-		// 파일 첨부하기. (파일은 일단 절대값 넣음)
-		dao.freeboardWriteFile("123", url);
+
+		if(!files.isEmpty()) {
+			String url = fileUploadService.restore(files, uploadPath);
+			model.addAttribute("url", url);
+			// 파일 첨부하기. (파일은 일단 절대값 넣음)
+			dao.freeboardWriteFile("123", url);
+		}
 		
-		return "freeboard/freeboardSearch";
+		return "redirect:getFreeboardSearch";
 	}
 	
 	@RequestMapping("/freeboard/freeboardContent")
@@ -165,7 +176,6 @@ System.out.println(uploadPath);
 		// 게시물 번호 가져오기.
 		String fbSeqno = request.getParameter("fbSeqno");
 		
-		// Dao 선언
 		DaoFreeBoard dao = sqlSession.getMapper(DaoFreeBoard.class);
 		
 		// 게시물 컨텐트 띄우기.
@@ -177,7 +187,6 @@ System.out.println(uploadPath);
 		// 게시물 댓글 띄워주기.
 		model.addAttribute("commentContent", dao.freeboardCommentContent(fbSeqno));
 		
-		
 		return "freeboard/freeboardContent";
 	}
 	
@@ -185,7 +194,6 @@ System.out.println(uploadPath);
 	@RequestMapping("/freeboardDelete")
 	public String freeboardDelete(HttpServletRequest request) {
 		
-		// Dao 선언
 		DaoFreeBoard dao = sqlSession.getMapper(DaoFreeBoard.class);
 		dao.freeboardDelete(request.getParameter("fbSeqno"));
 		
@@ -195,11 +203,6 @@ System.out.println(uploadPath);
 	@RequestMapping("/freeboardUpdate")
 	public String freeboardUpdate(HttpServletRequest request) {
 		
-System.out.println(request.getParameter("fbSeqno"));
-System.out.println(request.getParameter("fbTitle"));
-System.out.println(request.getParameter("fbContent"));
-		
-		// Dao 선언
 		DaoFreeBoard dao = sqlSession.getMapper(DaoFreeBoard.class);
 		dao.freeboardUpdate(request.getParameter("fbTitle"), request.getParameter("fbContent"), request.getParameter("fbSeqno"));
 		
@@ -210,7 +213,6 @@ System.out.println(request.getParameter("fbContent"));
 	@RequestMapping("/likeCount")
 	public String likeCount(HttpServletRequest request, Model model) {
 		
-		// Dao 선언
 		DaoFreeBoard dao = sqlSession.getMapper(DaoFreeBoard.class);
 		dao.likeCount(request.getParameter("fbSeqno"));
 		
@@ -221,7 +223,6 @@ System.out.println(request.getParameter("fbContent"));
 	@RequestMapping("/freeboardCommentWrite")
 	public String freeboardCommentWrite(HttpServletRequest request, Model model) {
 		
-		// Dao 선언
 		DaoFreeBoard dao = sqlSession.getMapper(DaoFreeBoard.class);
 // 지금은 작성자에서 불러옴. 로그인하면 세션값으로 불러와야함.		request.getParameter("mId")
 		dao.freeboardCommentWrite(request.getParameter("fcContent"), request.getParameter("fbSeqno"), "jong");
@@ -232,7 +233,6 @@ System.out.println(request.getParameter("fbContent"));
 	@RequestMapping("/freeboardCommentDelete")
 	public String freeboardCommentDelete(HttpServletRequest request) {
 		
-		// Dao 선언
 		DaoFreeBoard dao = sqlSession.getMapper(DaoFreeBoard.class);
 		dao.freeboardCommentDelete(request.getParameter("fcSeqno"));
 		
@@ -242,7 +242,6 @@ System.out.println(request.getParameter("fbContent"));
 	@RequestMapping("/freeboardCommentUpdate")
 	public String freeboardCommentUpdate(HttpServletRequest request) {
 		
-		// Dao 선언
 		DaoFreeBoard dao = sqlSession.getMapper(DaoFreeBoard.class);
 		dao.freeboardCommentUpdate(request.getParameter("fcContent"), request.getParameter("fcSeqno"));
 		

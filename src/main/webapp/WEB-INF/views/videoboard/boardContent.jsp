@@ -12,7 +12,7 @@
 </head>
 <body>
 
-	<form action="/KeyWar/board/boardUpdate.do" method="post">
+	<form action="../videoboardUpdate" method="post">
 		<table border="1">
 			<tr>
 				<td colspan="2"><video src="/keywar/resources/20208115624179.mp4" width="500" height="300" controls>영상파일</video></td>
@@ -50,9 +50,9 @@
 			<tr>
 				<td colspan="2"><input type="submit" value="수정">
 				
-				<a href = "/KeyWar/board/boardLike.do?bSeqno=${boardContent.bSeqno }">좋아요</a>
-				<a href = "/KeyWar/board/boardDelete.do?bSeqno=${boardContent.bSeqno }">삭제</a>
-				<a href = "/KeyWar/board/boardSearch.do">목록보기</a></td>
+				<a href = "../videoBoardLikeCount?bSeqno=${boardContent.bSeqno }">좋아요</a>
+				<a href = "../videoboardDelete?bSeqno=${boardContent.bSeqno }">삭제</a>
+				<a href = "../getVideoboardSearch">목록보기</a></td>
 			</tr>
 		</table>
 	</form>
@@ -63,20 +63,20 @@
 		</tr>
 			
 		<c:forEach items="${commentContentVideo}" var="fc">
-		<form action="/KeyWar/board/boardcommentUpdate.do" method="post">
+		<form action="../videoboardCommentUpdate" method="post">
 		<tr>
 			<td><input type="text" name="cSeqno" size="5" value="${fc.cSeqno}" readonly="readonly"></td>
 			<td><input type="text" name="cWriter" size="10" value="${fc.cWriter}" readonly="readonly"></td>
 			<td><input type="text" name="cContent" size="50" value="${fc.cContent}"></td>
 			<td><input type="text" name="cDate" size="20" value="${fc.cDate}" readonly="readonly"></td>
 			<td><input type="submit" value="수정">
-			<td><a href = "/KeyWar/board/boardcommentDelete.do?cSeqno=${fc.cSeqno}">삭제</a></td>
+			<td><a href = "../videoboardCommentDelete?cSeqno=${fc.cSeqno}">삭제</a></td>
 		</tr>
 		</form>
 		</c:forEach>
 	</table>
 	
-	<form action="/KeyWar/board/boardcommentWrite.do" method="post">
+	<form action="../videoboardCommentWrite" method="post">
 			<textarea rows="3" cols="50" name="cContent"></textarea>
 			<input type="hidden" name="mId" value="${loginId }">
 			<input type="hidden" name="bSeqno" value="${boardContent.bSeqno}">

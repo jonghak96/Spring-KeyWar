@@ -87,21 +87,22 @@
 		</c:forEach>
 	</table>
 	
-	<a href="fighterSearch?page=1&searchCategory=${searchCategory}&searchWord=${searchWord}">&lt;&lt;</a> &nbsp;
+	<a href="fighterSearch_click?page=1&searchCategory=${searchCategory}&searchWord=${searchWord}">&lt;&lt;</a> &nbsp;
 	
 	<c:if test="${point >= 2}">
-		<a href="fighterSearch?page=${back }&searchCategory=${searchCategory}&searchWord=${searchWord}">&lt;</a> &nbsp;
+		<a href="fighterSearch_click?page=${back }&searchCategory=${searchCategory}&searchWord=${searchWord}">&lt;</a> &nbsp;
 	</c:if>
 	
+	
 	<c:forEach var="i" begin="${min_num }" end="${max_num }">
-		<a href= "fighterSearch?page=${i }&searchCategory=${searchCategory}&searchWord=${searchWord}">${i }</a> &nbsp;
+		<a href= "fighterSearch_click?page=${i }&searchCategory=${searchCategory}&searchWord=${searchWord}">${i }</a> &nbsp;
 	</c:forEach>
 	
 	<c:if test="${point<= (pageTotal-1)/10}">
-		<a href="fighterSearch?page=${go }&searchCategory=${searchCategory}&searchWord=${searchWord}">&gt;</a> &nbsp;
+		<a href="fighterSearch_click?page=${go }&searchCategory=${searchCategory}&searchWord=${searchWord}">&gt;</a> &nbsp;
 	</c:if>
 	
-	<a href="fighterSearch?page=${pageTotal}&searchCategory=${searchCategory}&searchWord=${searchWord}">&gt;&gt;</a> &nbsp;
+	<a href="fighterSearch_click?page=${pageTotal}&searchCategory=${searchCategory}&searchWord=${searchWord}">&gt;&gt;</a> &nbsp;
 </div>
 	
 <div id="kscontainer2">

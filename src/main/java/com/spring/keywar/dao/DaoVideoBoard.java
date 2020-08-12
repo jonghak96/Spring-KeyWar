@@ -2,6 +2,7 @@ package com.spring.keywar.dao;
 
 import java.util.ArrayList;
 
+import com.spring.keywar.dto.DtoBoardComment;
 import com.spring.keywar.dto.DtoVideoBoard;
 
 
@@ -26,15 +27,15 @@ public interface DaoVideoBoard {
 	// 영상게시판 내용 사진첨부.
 	public ArrayList<DtoVideoBoard> videoboardContentFile(String fbSeqno);
 	// 영상게시판 삭제.
-	public void videoboardDelete(String fbSeqno);
+	public void videoboardDelete(String bSeqno);
 	// 영상게시판 수정.
-	public void videoboardUpdate(String fbTitle, String fbContent, String fbSeqno);
+	public void videoboardUpdate(String bTitle, String bContent, String bSeqno);
 	// 영상게시판 조회수. 좋아요.
 	public void viewCount(String bSeqno);
-	public void likeCount(String fbSeqno);
+	public void likeCount(String bSeqno);
 	// 영상게시판 댓글 쓰기.
-	public void videoboardCommentWrite(String fcContent, String fbSeqno, String mId);
-	public ArrayList<DtoVideoBoard> videoboardCommentContent(String fbSeqno);
-	public void videoboardCommentDelete(String fcSeqno);
-	public void videoboardCommentUpdate(String fcContent, String fcSeqno);
+	public void videoboardCommentWrite(String cContent, String bSeqno, String mId);
+	public ArrayList<DtoBoardComment> videoboardCommentContent(String bSeqno); // ok.
+	public void videoboardCommentDelete(String cSeqno);
+	public void videoboardCommentUpdate(String cContent, String cSeqno);
 }

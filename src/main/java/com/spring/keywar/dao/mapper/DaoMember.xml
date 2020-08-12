@@ -17,7 +17,7 @@
 	</insert>
 	
 	<insert id="writeGymDao">
-		INSERT INTO GYM (GNUMBER, GADDRESS, GRENTALPRICE, MEMBER_MSEQNO) VALUES (#{param1}, #{param2}, #{param3}, (select mSeqno from keyWar.member where mId = #{param4}))
+		INSERT INTO GYM (GNUMBER, GADDRESS, GPHOTO, GPHOTOPATH, GRENTALPRICE, MEMBER_MSEQNO) VALUES (#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, (select mSeqno from keyWar.member where mId = #{param6}))
 	</insert>
 	
 	<select id="loginCheckDao" resultType="String">
@@ -35,6 +35,12 @@
 	<insert id="writeReadyDao">
 		INSERT INTO KEYWAR.READY (RSEX, RAGE1, RAGE2, RAREA, RWCLASS1, RWCLASS2, MEMBER_MSEQNO) VALUES (#{0}, #{1}, #{2}, #{3}, #{4}, #{5}, (SELECT M.MSEQNO FROM KEYWAR.MEMBER AS M WHERE M.MID = #{6}));
 	</insert>
+	
+	<insert id="writGymFile">
+		INSERT INTO KEYWAR.GYMFILE (GFPHOTO, GFPHOTOPATH, MEMBER_MSEQNO) VALUES (#{0}, #{1}, (SELECT MSEQNO FROM KEYWAR.MEMBER WHERE MID = #{2}))
+	</insert>
+
+
 
 	
 </mapper>
