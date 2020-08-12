@@ -1,7 +1,10 @@
 package com.spring.keywar.controller;
 
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spring.keywar.dao.DaoFighter;
+import com.spring.keywar.dto.DtoGym;
 
 @Controller
 public class ControllerFighter {
@@ -22,10 +26,30 @@ public class ControllerFighter {
 	public String fighterSearch(HttpServletRequest request, Model model) {
 		return "fighter/fighterPage";
 	}
-	
+		
 	@RequestMapping("/getFighterSearch")
 	public String getfighterList(HttpServletRequest request, Model model) {
+
+		// 큐브
+		// HttpSession session
+		// request.getSession();
+		// String loginId
+		// session.getAttribute("loginId").toString();
+		// if ()
+		// loginId = "";
+		String loginId;
 		
+		HttpSession session = request.getSession();     // 세션 객체만들기
+		if(session.getAttribute("loginId")==null) {
+			loginId = "";
+			System.out.println("loginId = " + loginId);
+		}else {
+			loginId = session.getAttribute("loginId").toString();
+			System.out.println("loginId = " + loginId);
+		}
+		
+		
+			
 		// Dao 선언
 		DaoFighter dao = sqlSession.getMapper(DaoFighter.class);
 		// 검색 카테고리

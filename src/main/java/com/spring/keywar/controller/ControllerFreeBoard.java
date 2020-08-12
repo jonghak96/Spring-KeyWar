@@ -32,11 +32,16 @@ public class ControllerFreeBoard {
 	@RequestMapping("/getFreeboardSearch")
 	public String freeboardList(HttpServletRequest request, Model model) {
 		
-		HttpSession session = request.getSession();     // 세션 객체만들기
-
-		String loginId = session.getAttribute("loginId").toString();
+String loginId;
 		
-		System.out.println("loginId = " + loginId);
+		HttpSession session = request.getSession();     // 세션 객체만들기
+		if(session.getAttribute("loginId")==null) {
+			loginId = "";
+			System.out.println("loginId = " + loginId);
+		}else {
+			loginId = session.getAttribute("loginId").toString();
+			System.out.println("loginId = " + loginId);
+		}
 		
 		// Dao 선언
 		DaoFreeBoard dao = sqlSession.getMapper(DaoFreeBoard.class);
