@@ -34,7 +34,7 @@
 
 	
 	
-	<a href = "/KeyWar/freeboard/freeboardSearch">취소</a></td>
+	<a href = "../getFreeboardSearch">취소</a></td>
 	
 </body>
 </html>

@@ -113,9 +113,16 @@ public class ControllerFighter {
 		}
 			
 		// 페이지 처음 뜰 때, 테이블 출력
-		model.addAttribute("pageTotal", (int)pageTotal);
-		model.addAttribute("searchCategory", searchCategory);
-		model.addAttribute("searchWord", searchWord);
+//		model.addAttribute("pageTotal", (int)pageTotal);
+//		model.addAttribute("searchCategory", searchCategory);
+//		model.addAttribute("searchWord", searchWord);
+		
+		model.addAttribute("point", pageIndex);
+		model.addAttribute("page", page);
+		model.addAttribute("min_num", min_num);
+		model.addAttribute("max_num", max_num);
+		model.addAttribute("back", back);
+		model.addAttribute("go", go);
 
 		return "fighter/fighterSearch";
 	}
