@@ -1,5 +1,10 @@
 package com.spring.keywar.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,11 +15,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.spring.keywar.dao.DaoFreeBoard;
 import com.spring.keywar.dao.DaoMatch;
 import com.spring.keywar.dao.DaoVideoBoard;
 import com.spring.keywar.service.FileUploadService;
+import com.spring.keywar.service.VideoThread;
 
 @Controller
 public class ControllerVideoBoard {
@@ -165,7 +171,7 @@ public class ControllerVideoBoard {
 		// 글 작성하기. // 작성자 잘 들어가는지 확인하기!!!!
 		dao.videoboardWrite(bTitle, bContent, mId);
 		// 파일 첨부하기. (파일은 일단 절대값 넣음)  // 작성자 잘 들어가는지 확인하기!!!! // 썸네일 추출하기!!!!
-		dao.videoboardWriteFile("test", "test", url, mId);
+		dao.videoboardWriteFile(imgSrc, "test", url, mId);
 		
 		// Dao 선언
 		DaoMatch dao2 = sqlSession.getMapper(DaoMatch.class);
@@ -264,6 +270,86 @@ System.out.println(request.getParameter("bContent"));
 		return "redirect:getVideoboardSearch";
 	}
 	
+	
+	@RequestMapping("/videoThumbnail")
+	public String videoThumbnail(MultipartHttpServletRequest multi, Model model) {
+		
+		// ---- 이미지 -----------------------------------------------		
+		// 현재 시간 구하기
+		System.out.println("memberSignUp");
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+		Date date = new Date();
+		String time = format.format(date);
+		
+		String uploadPath = multi.getSession().getServletContext().getRealPath("/resources/thumbnail/" + time);
+		System.out.println("uploadPath = " + uploadPath);
+		
+		// 폴더 만들기
+		File imgsDir = new File(uploadPath);
+		if(!imgsDir.exists()) {
+			try {
+				imgsDir.mkdirs();
+				System.out.println("폴더가 생성되었습니다.");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			System.out.println("폴더가 이미 생성되어있습니다.");
+		}
+		
+		int maxSize =1024 *1024 *100;// 한번에 올릴 수 있는 파일 용량 : 100M로 제한
+					
+		try{
+			MultipartFile multiFile = multi.getFile("videoFile");
+			
+			File file = multipartFileToFile(multiFile);			
+			
+			// Sumnail 만드는 스레드 ----------------------------------------------------
+
+			double plusSize = 1;
+			int threadSize = 8;
+			
+			// thread 생성
+			VideoThread[] videoThreads = new VideoThread[threadSize];
+			
+			for (int i = 0 ; i < videoThreads.length ; i++) {
+				videoThreads[i] = new VideoThread(file, threadSize, i, plusSize, uploadPath);
+				videoThreads[i].start();
+			}
+			System.out.println("쓰레드 시작");
+			
+			for (int i = 0 ; i < videoThreads.length; i++) {
+				videoThreads[i].join();
+			}
+			System.out.println("쓰레드 종료");
+			System.out.println("videolength = " + videoThreads.length);
+			
+			String[] uploadFilePath = new String[5];
+			for (int i = 0 ; i < 5 ; i++) {
+				uploadFilePath[i] = "resources/thumbnail/" + time + "/" + i + ".png";
+				System.out.println("UploadPath" + i + " = " + uploadFilePath[i]);
+			}
+			
+			model.addAttribute("UPLOADFILEPATH", uploadFilePath);
+			
+			// ------------------------------------------------------------------------
+
+			
+	    }catch(Exception e){
+	        e.printStackTrace();
+	    }	
+		// -----------------------------------------------------------------
+		
+		return "videoboard/imgList";
+	}
+		
+	// MultiFile -> File Conversion
+	public File multipartFileToFile(MultipartFile mfile) throws IllegalStateException, IOException {
+		File file = new File(mfile.getOriginalFilename());
+		mfile.transferTo(file);
+		return file;
+	}
 	
 	
 	
