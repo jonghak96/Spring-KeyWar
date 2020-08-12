@@ -7,6 +7,7 @@ import java.util.Date;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,11 +123,18 @@ public class ControllerVideoBoard {
 			go = point * 10 + 1;
 		}
 		
-//		절대값
-//		HttpSession session = request.getSession();     // 세션 객체만들기
-//		String sessionid = session.getAttribute("loginId").toString();
-//		int idCheck = dao.gymIdCheck(sessionid);
-		model.addAttribute("IDCHECK", 1);
+		String loginId;
+		
+		HttpSession session = request.getSession();     // 세션 객체만들기
+		if(session.getAttribute("loginId")==null) {
+			loginId = "";
+			System.out.println("loginId = " + loginId);
+		}else {
+			loginId = session.getAttribute("loginId").toString();
+			System.out.println("loginId = " + loginId);
+		}
+		int idCheck = dao.gymIdCheck(loginId);
+		model.addAttribute("IDCHECK", idCheck);
 		
 		model.addAttribute("point", point);
 		model.addAttribute("page", page);
