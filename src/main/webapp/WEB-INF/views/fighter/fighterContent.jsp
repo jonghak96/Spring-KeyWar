@@ -13,7 +13,7 @@
                    
 	<h1>선수상세정보</h1>
 	
-	<img src="../member/${content.cPhotoPath }" alt="photo" width="200" height="200">
+	<img src="/keywar/resources/${content.cPhotoPath }" alt="photo" width="200" height="200">
 	<br>
 	 아이디 &emsp; ${content.mId }
 	 <br>

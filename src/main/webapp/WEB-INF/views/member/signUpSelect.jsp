@@ -20,6 +20,9 @@
 			alert("동의하세요");
 		}		
 	}	
+	function mainPageMove() {
+		location.href = "../keywar/main";
+	}
 </script>
 
 </head>

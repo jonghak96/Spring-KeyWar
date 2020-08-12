@@ -96,7 +96,7 @@ public class ControllerMember {
 	
 	// 체육관 회원가입 정보
 	@RequestMapping("/gymSignUp") 
-	public String gymSignUp(HttpServletRequest request, Model model) {
+	public String gymSignUp(HttpServletRequest request, Model model, @RequestParam("profile") MultipartFile profile, @RequestParam("files") MultipartFile files) {
 		
 		
 		DaoMember dao = sqlSession.getMapper(DaoMember.class);
@@ -110,14 +110,30 @@ public class ControllerMember {
 							request.getParameter("sports"), 
 							request.getParameter("type"));
 		
+		// 동적 저장 장소.
+		String uploadPath = request.getSession().getServletContext().getRealPath("/resources/");
+		String url = fileUploadService.restore(profile, uploadPath);
+		model.addAttribute("url", url);
+		
 		dao.writeGymDao((request.getParameter("number1") + "-" + request.getParameter("number2") + "-" + request.getParameter("number3")), 
 						(request.getParameter("gArea") + request.getParameter("address")), 
+						"123",
+						url,
 						Integer.parseInt(request.getParameter("price")), 
 						request.getParameter("id"));
 		
 		dao.writeTimeTableDao(request.getParameter("id"),
 				  request.getParameter("timeTable1"),
 				  request.getParameter("timeTable2"));
+		
+		// 동적 저장 장소.
+				 uploadPath = request.getSession().getServletContext().getRealPath("/resources/");
+				 url = fileUploadService.restore(files, uploadPath);
+				model.addAttribute("url", url);
+		
+		dao.writGymFile("123",
+						url,
+						request.getParameter("id"));
 					
 		return "login/login";
 	}

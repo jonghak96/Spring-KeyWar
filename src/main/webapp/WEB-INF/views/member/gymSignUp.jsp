@@ -135,14 +135,14 @@
 
 </head>
 <body>
-	<form action="gymSignUp" method="get" enctype="Multipart/form-data" onsubmit="return formSubmit()">
+	<form action="gymSignUp" method="post" enctype="Multipart/form-data" onsubmit="return formSubmit()">
 		<h6 id="c1">*필수 입력</h6>
 		*아이디 : <input type="text" name="id" id="id" maxlength="17">
 		<button type="button" onclick="idOverlapCheck()">아이디 중복확인</button> <span id="idCheck"></span>				<br>
 		*비밀번호 : <input type="password" name="pw" id="pw" maxlength="17">		<br>
 		*비밀번호 확인 : <input type="password" id="pwCheck" maxlength="17">			<br>
 		*체육관 이름 : <input type="text" name="name" id="name" maxlength="20">		<br>
-		*체육관 프로필 이미지 : <input type="file" name="profil" accept="image/gif,image/jpeg,image/png"> <br>
+		*체육관 프로필 이미지 : <input type="file" name="profile" accept="image/gif,image/jpeg,image/png"> <br>
 		체육관에서 배우는 종목 : <input type="text" name="sports" id="sports" maxlength="10">		<br>
 		체육관 대여료 : <input type="text" name="price" id="price" maxlength="11">		<br>
 		*이메일 : <input type="text" name="email1" id="email1" maxlength="23"> @ 
