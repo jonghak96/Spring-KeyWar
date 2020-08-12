@@ -5,8 +5,8 @@
 
 <mapper namespace="com.spring.keywar.dao.DaoRank">
 
-<select id="rankingList" resultType="com.spring.keywar.dto.DtoMember">
-		select m.mId, c.cWin, c.cLose, c.cDraw, c.cAge, c.cHeight, c.cWeight, m.mSports, cPhotoPath from keyWar.member as m, customer as c where m.mSeqno = c.member_mSeqno order by c.cWin desc limit 3
+	<select id="rankingList" resultType="com.spring.keywar.dto.DtoMember">
+		SELECT M.MID, C.CWIN, C.CLOSE, C.CDRAW, C.CAGE, C.CHEIGHT, C.CWEIGHT, M.MSPORTS, CPHOTOPATH FROM KEYWAR.MEMBER AS M, CUSTOMER AS C WHERE M.MSEQNO = C.MEMBER_MSEQNO ORDER BY C.CWIN DESC LIMIT 3
 	</select>
 
 </mapper>

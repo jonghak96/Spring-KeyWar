@@ -64,7 +64,7 @@
 			<div class="videoContainer">
 		</c:if>
 		<div class="videobox">
-			<a href = "videoboard/boardContent?bSeqno=${search.bSeqno }"><img src="../board/${search.fPhotoPath }" alt="photo" width="200" height="150"></a> <br>
+			<a href = "videoboard/boardContent?bSeqno=${search.bSeqno }"><img src="/keywar/resources/thumbnail/${search.fPhotoPath }" alt="photo" width="200" height="150"></a> <br>
 			영상번호 : ${search.bSeqno } <br>
 			작성자 : ${search.mId } <br>
 			제목 : ${search.bTitle } <br>

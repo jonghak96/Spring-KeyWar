@@ -11,9 +11,9 @@
     
 <script type="text/javascript">	
 
-	function sumNail() {
+	function thumbnail() {
 		// Form 전체를 넘겨주는 방식 
-		var formData = new FormData($("#sumNailForm")[0]); 
+		var formData = new FormData($("#thumbnailForm")[0]); 
 		console.log(formData);
 		// 아래 주석은 위와 같은데 표현만 다름 
 		// var formData = new FormData(document.getElementById("form")); 
@@ -25,7 +25,7 @@
 
 		$.ajax({ 
 			type: 'POST', 
-			url: 'video.sumnail', 
+			url: '../videoThumbnail', 
 			processData: false, // 필수 
 			contentType: false, // 필수 
 			data: formData, 
@@ -33,8 +33,7 @@
 			success: function(data) { 
 				console.log("성공");
 				console.log(data);
-				var divCon = document.getElementById("sumNailContainer");
-				console.log(divCon);
+				var divCon = document.getElementById("thumbnailContainer");
 				divCon.innerHTML = data;
 
 				var imgId = "img0";				
@@ -47,18 +46,20 @@
 	
 	function imgClick(img) {
 		var imgId = "img" + img.value;
+		console.log(img);
+		console.log(imgId);
 		
 		var imgSrc = document.getElementById(imgId).src;		
 		
 		var inputHidden = document.getElementById("imgSrc");
 		
-		inputHidden.value = imgSrc.substring(imgSrc.indexOf("i") - 1 , imgSrc.length);
-		console.log(inputHidden.value = imgSrc.substring(imgSrc.indexOf("i") - 1 , imgSrc.length));
+		inputHidden.value = imgSrc.substring(imgSrc.indexOf("i") + 3 , imgSrc.length);
+		console.log(inputHidden.value);
 	}	
 </script>
 
 <style type="text/css">
-	#sumNailContainer {
+	#thumbnailContainer {
 		width: 1000px;
 		border: 1px solid black;
 	}
@@ -70,7 +71,7 @@
 	<h1>영상등록</h1>
 
 
-	<form action="../writeVideoboard" method="post" enctype="Multipart/form-data" id="sumNailForm">
+	<form action="../writeVideoboard" method="post" enctype="Multipart/form-data" id="thumbnailForm">
 	
 	<table border="1">
 		<tr>
@@ -101,12 +102,12 @@
 		</tr>
 		<tr>
 			<td>동영상 첨부:</td>
-			<td><input type="file" name="videoFile" accept="video/*" id="videoFile"  /> <button type="button" onclick="sumNail()">동영상 썸네일 추출하기</button> </td>
+			<td><input type="file" name="videoFile" accept="video/*" id="videoFile"  /> <button type="button" onclick="thumbnail()">동영상 썸네일 추출하기</button> </td>
 		</tr>
 	</table>
 	
 	<input type="hidden" name="imgSrc" id="imgSrc" value="">
-	<div id="sumNailContainer">
+	<div id="thumbnailContainer">
 	
 	</div>
 		<input type="submit" value="영상등록">
